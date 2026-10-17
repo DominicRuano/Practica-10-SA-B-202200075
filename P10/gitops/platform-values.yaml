@@ -1,0 +1,78 @@
+gateway:
+  image:
+    reference: ghcr.io/dominicruano/sa-p8/gateway:1.10.1@sha256:9350c81ff8e0c77a437ac25908899b2c3c9819bb66f1ec17b74049ad8761c790
+  config:
+    OTEL_SERVICE_NAME: gateway
+    OTEL_EXPORTER_OTLP_ENDPOINT: http://p10-collector.observabilidad.svc:4318
+    OTEL_TRACES_SAMPLER: always_on
+    SERVICE_VERSION: 1.10.1
+    OTEL_METRICS_EXPORTER: none
+  analysis:
+    prometheusEnabled: true
+  rollout:
+    maxSurge: 1
+    maxUnavailable: 0
+    promotions:
+    - weight: 50
+      pause: 150s
+  resources:
+    requests:
+      cpu: 50m
+      memory: 96Mi
+    limits:
+      cpu: 1000m
+      memory: 384Mi
+solicitudes:
+  image:
+    reference: ghcr.io/dominicruano/sa-p8/solicitudes:1.10.1@sha256:7f8d7bea50676a0acf568a4cf5260b45c0e8a74bda5c769507fc98e92e337a96
+  config:
+    OTEL_SERVICE_NAME: solicitudes
+    OTEL_EXPORTER_OTLP_ENDPOINT: http://p10-collector.observabilidad.svc:4318
+    OTEL_TRACES_SAMPLER: always_on
+    SERVICE_VERSION: 1.10.1
+    OTEL_METRICS_EXPORTER: none
+  analysis:
+    prometheusEnabled: true
+  rollout:
+    maxSurge: 1
+    maxUnavailable: 0
+    promotions:
+    - weight: 50
+      pause: 150s
+  resources:
+    requests:
+      cpu: 100m
+      memory: 192Mi
+    limits:
+      cpu: 500m
+      memory: 384Mi
+catalogo:
+  image:
+    reference: ghcr.io/dominicruano/sa-p8/catalogo:1.10.1@sha256:9445e42eb0759700440995e024bce1aec8ada96ee8197f78cd3fb4d283bdea5e
+  config:
+    OTEL_SERVICE_NAME: catalogo
+    OTEL_EXPORTER_OTLP_ENDPOINT: http://p10-collector.observabilidad.svc:4318
+    OTEL_TRACES_SAMPLER: always_on
+    SERVICE_VERSION: 1.10.1
+    FAULT_DELAY_MS: '0'
+    OTEL_METRICS_EXPORTER: none
+  analysis:
+    prometheusEnabled: true
+  rollout:
+    maxSurge: 1
+    maxUnavailable: 0
+    promotions:
+    - weight: 50
+      pause: 240s
+  resources:
+    requests:
+      cpu: 100m
+      memory: 192Mi
+    limits:
+      cpu: 1000m
+      memory: 512Mi
+postgresql-ha:
+  pgpool:
+    resources:
+      limits:
+        cpu: 1000m

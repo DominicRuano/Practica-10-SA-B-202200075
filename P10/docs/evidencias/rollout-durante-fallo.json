@@ -1,0 +1,292 @@
+{
+    "apiVersion": "argoproj.io/v1alpha1",
+    "kind": "Rollout",
+    "metadata": {
+        "annotations": {
+            "argocd.argoproj.io/tracking-id": "p9-platform:argoproj.io/Rollout:sa-p9/catalogo",
+            "rollout.argoproj.io/revision": "5"
+        },
+        "creationTimestamp": "2026-10-17T04:41:59Z",
+        "generation": 7,
+        "labels": {
+            "app.kubernetes.io/component": "backend",
+            "app.kubernetes.io/instance": "p9-platform",
+            "app.kubernetes.io/managed-by": "Helm",
+            "app.kubernetes.io/name": "catalogo",
+            "app.kubernetes.io/part-of": "sa-platform",
+            "app.kubernetes.io/version": "1.1.0",
+            "helm.sh/chart": "catalogo-0.9.0"
+        },
+        "name": "catalogo",
+        "namespace": "sa-p9",
+        "resourceVersion": "1792244170372895010",
+        "uid": "cdd028f1-1832-4b16-801d-d137dc97fd97"
+    },
+    "spec": {
+        "minReadySeconds": 5,
+        "replicas": 2,
+        "revisionHistoryLimit": 3,
+        "selector": {
+            "matchLabels": {
+                "app.kubernetes.io/instance": "p9-platform",
+                "app.kubernetes.io/name": "catalogo"
+            }
+        },
+        "strategy": {
+            "canary": {
+                "canaryService": "catalogo-canary",
+                "maxSurge": 1,
+                "maxUnavailable": 0,
+                "steps": [
+                    {
+                        "setWeight": 50
+                    },
+                    {
+                        "pause": {
+                            "duration": "240s"
+                        }
+                    },
+                    {
+                        "analysis": {
+                            "args": [
+                                {
+                                    "name": "service",
+                                    "value": "catalogo"
+                                },
+                                {
+                                    "name": "hash",
+                                    "valueFrom": {
+                                        "podTemplateHashValue": "Latest"
+                                    }
+                                }
+                            ],
+                            "templates": [
+                                {
+                                    "templateName": "catalogo-promotion"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        "template": {
+            "metadata": {
+                "annotations": {
+                    "checksum/config": "c4b5f7e1372fe5100d1bdd891076201a8ec2046044010cd84a4d41d10e455898",
+                    "checksum/secret-inputs": "4f9255786a740ac659865b5e76d42ef03b85880d334d0ff0f2c0d2310ca8ca75"
+                },
+                "labels": {
+                    "app.kubernetes.io/component": "backend",
+                    "app.kubernetes.io/instance": "p9-platform",
+                    "app.kubernetes.io/name": "catalogo"
+                }
+            },
+            "spec": {
+                "affinity": {
+                    "podAntiAffinity": {
+                        "preferredDuringSchedulingIgnoredDuringExecution": [
+                            {
+                                "podAffinityTerm": {
+                                    "labelSelector": {
+                                        "matchLabels": {
+                                            "app.kubernetes.io/name": "catalogo"
+                                        }
+                                    },
+                                    "topologyKey": "kubernetes.io/hostname"
+                                },
+                                "weight": 100
+                            }
+                        ]
+                    }
+                },
+                "automountServiceAccountToken": false,
+                "containers": [
+                    {
+                        "env": [
+                            {
+                                "name": "DATABASE_URL",
+                                "valueFrom": {
+                                    "secretKeyRef": {
+                                        "key": "CATALOGO_DATABASE_URL",
+                                        "name": "sa-platform-secrets"
+                                    }
+                                }
+                            }
+                        ],
+                        "envFrom": [
+                            {
+                                "configMapRef": {
+                                    "name": "catalogo-config"
+                                }
+                            }
+                        ],
+                        "image": "ghcr.io/dominicruano/sa-p8/catalogo:1.10.1",
+                        "imagePullPolicy": "IfNotPresent",
+                        "lifecycle": {
+                            "preStop": {
+                                "exec": {
+                                    "command": [
+                                        "/bin/sh",
+                                        "-c",
+                                        "sleep 5"
+                                    ]
+                                }
+                            }
+                        },
+                        "livenessProbe": {
+                            "failureThreshold": 3,
+                            "httpGet": {
+                                "path": "/live",
+                                "port": "http",
+                                "scheme": "HTTP"
+                            },
+                            "initialDelaySeconds": 5,
+                            "periodSeconds": 10,
+                            "timeoutSeconds": 3
+                        },
+                        "name": "catalogo",
+                        "ports": [
+                            {
+                                "containerPort": 8000,
+                                "name": "http",
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "readinessProbe": {
+                            "failureThreshold": 3,
+                            "httpGet": {
+                                "path": "/ready",
+                                "port": "http",
+                                "scheme": "HTTP"
+                            },
+                            "initialDelaySeconds": 2,
+                            "periodSeconds": 5,
+                            "timeoutSeconds": 3
+                        },
+                        "resources": {
+                            "limits": {
+                                "cpu": "500m",
+                                "memory": "512Mi"
+                            },
+                            "requests": {
+                                "cpu": "100m",
+                                "memory": "192Mi"
+                            }
+                        },
+                        "securityContext": {
+                            "allowPrivilegeEscalation": false,
+                            "capabilities": {
+                                "drop": [
+                                    "ALL"
+                                ]
+                            },
+                            "readOnlyRootFilesystem": true
+                        },
+                        "startupProbe": {
+                            "failureThreshold": 30,
+                            "httpGet": {
+                                "path": "/startup",
+                                "port": "http",
+                                "scheme": "HTTP"
+                            },
+                            "periodSeconds": 2,
+                            "timeoutSeconds": 2
+                        },
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/tmp",
+                                "name": "tmp"
+                            }
+                        ]
+                    }
+                ],
+                "securityContext": {
+                    "fsGroup": 10001,
+                    "runAsGroup": 10001,
+                    "runAsNonRoot": true,
+                    "runAsUser": 10001,
+                    "seccompProfile": {
+                        "type": "RuntimeDefault"
+                    }
+                },
+                "serviceAccountName": "catalogo",
+                "terminationGracePeriodSeconds": 30,
+                "volumes": [
+                    {
+                        "emptyDir": {
+                            "sizeLimit": "64Mi"
+                        },
+                        "name": "tmp"
+                    }
+                ]
+            }
+        }
+    },
+    "status": {
+        "HPAReplicas": 2,
+        "availableReplicas": 2,
+        "blueGreen": {},
+        "canary": {},
+        "conditions": [
+            {
+                "lastTransitionTime": "2026-10-17T05:03:23Z",
+                "lastUpdateTime": "2026-10-17T05:03:23Z",
+                "message": "Rollout has minimum availability",
+                "reason": "AvailableReason",
+                "status": "True",
+                "type": "Available"
+            },
+            {
+                "lastTransitionTime": "2026-10-17T13:35:46Z",
+                "lastUpdateTime": "2026-10-17T13:35:46Z",
+                "message": "Rollout is not healthy",
+                "reason": "RolloutHealthy",
+                "status": "False",
+                "type": "Healthy"
+            },
+            {
+                "lastTransitionTime": "2026-10-17T13:35:46Z",
+                "lastUpdateTime": "2026-10-17T13:35:46Z",
+                "message": "RolloutCompleted",
+                "reason": "RolloutCompleted",
+                "status": "False",
+                "type": "Completed"
+            },
+            {
+                "lastTransitionTime": "2026-10-17T13:36:10Z",
+                "lastUpdateTime": "2026-10-17T13:36:10Z",
+                "message": "Rollout is paused",
+                "reason": "RolloutPaused",
+                "status": "Unknown",
+                "type": "Progressing"
+            },
+            {
+                "lastTransitionTime": "2026-10-17T13:36:10Z",
+                "lastUpdateTime": "2026-10-17T13:36:10Z",
+                "message": "Rollout is paused",
+                "reason": "RolloutPaused",
+                "status": "True",
+                "type": "Paused"
+            }
+        ],
+        "controllerPause": true,
+        "currentPodHash": "b598b97bb",
+        "currentStepHash": "78ff98496",
+        "currentStepIndex": 1,
+        "message": "CanaryPauseStep",
+        "observedGeneration": "7",
+        "pauseConditions": [
+            {
+                "reason": "CanaryPauseStep",
+                "startTime": "2026-10-17T13:36:10Z"
+            }
+        ],
+        "phase": "Paused",
+        "readyReplicas": 2,
+        "replicas": 2,
+        "selector": "app.kubernetes.io/instance=p9-platform,app.kubernetes.io/name=catalogo",
+        "stableRS": "55dd789c55",
+        "updatedReplicas": 1
+    }
+}

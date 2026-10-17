@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: p10-telemetry
+  namespace: sa-p9
+spec:
+  podSelector:
+    matchExpressions:
+      - {key: app.kubernetes.io/name, operator: In, values: [gateway, solicitudes, catalogo]}
+  policyTypes: [Ingress, Egress]
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels: {kubernetes.io/metadata.name: observabilidad}
+      ports:
+        - {protocol: TCP, port: 8080}
+        - {protocol: TCP, port: 3001}
+        - {protocol: TCP, port: 8000}
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels: {kubernetes.io/metadata.name: observabilidad}
+          podSelector:
+            matchLabels: {app: p10-collector}
+      ports:
+        - {protocol: TCP, port: 4318}

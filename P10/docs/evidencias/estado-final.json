@@ -1,0 +1,134 @@
+{
+  "captured_at": "2026-10-17T13:56:36.494170+00:00",
+  "nodes": [
+    {
+      "name": "gke-sa-p9-primary-65f5af62-cv71",
+      "machine_type": "e2-standard-2"
+    },
+    {
+      "name": "gke-sa-p9-primary-65f5af62-ghtr",
+      "machine_type": "e2-standard-2"
+    },
+    {
+      "name": "gke-sa-p9-primary-65f5af62-nzc6",
+      "machine_type": "e2-standard-2"
+    }
+  ],
+  "applications": [
+    {
+      "name": "p10-monitoring",
+      "sync": "Synced",
+      "health": "Healthy"
+    },
+    {
+      "name": "p10-observability",
+      "sync": "Synced",
+      "health": "Healthy"
+    },
+    {
+      "name": "p9-argo-rollouts",
+      "sync": "Synced",
+      "health": "Healthy"
+    },
+    {
+      "name": "p9-config",
+      "sync": "Synced",
+      "health": "Healthy"
+    },
+    {
+      "name": "p9-external-secrets",
+      "sync": "Synced",
+      "health": "Healthy"
+    },
+    {
+      "name": "p9-kyverno",
+      "sync": "Synced",
+      "health": "Healthy"
+    },
+    {
+      "name": "p9-platform",
+      "sync": "Synced",
+      "health": "Healthy"
+    },
+    {
+      "name": "p9-protection",
+      "sync": "Synced",
+      "health": "Healthy"
+    },
+    {
+      "name": "p9-velero",
+      "sync": "Synced",
+      "health": "Healthy"
+    },
+    {
+      "name": "sa-p9-root",
+      "sync": "Synced",
+      "health": "Healthy"
+    }
+  ],
+  "rollouts": [
+    {
+      "name": "autenticacion",
+      "phase": "Healthy",
+      "ready": 2,
+      "image": "ghcr.io/dominicruano/sa-p8/autenticacion:1.1.0"
+    },
+    {
+      "name": "catalogo",
+      "phase": "Healthy",
+      "ready": 2,
+      "image": "ghcr.io/dominicruano/sa-p8/catalogo:1.10.1@sha256:9445e42eb0759700440995e024bce1aec8ada96ee8197f78cd3fb4d283bdea5e"
+    },
+    {
+      "name": "gateway",
+      "phase": "Healthy",
+      "ready": 2,
+      "image": "ghcr.io/dominicruano/sa-p8/gateway:1.10.1@sha256:9350c81ff8e0c77a437ac25908899b2c3c9819bb66f1ec17b74049ad8761c790"
+    },
+    {
+      "name": "reportes",
+      "phase": "Healthy",
+      "ready": 2,
+      "image": "ghcr.io/dominicruano/sa-p8/reportes:1.1.0"
+    },
+    {
+      "name": "solicitudes",
+      "phase": "Healthy",
+      "ready": 2,
+      "image": "ghcr.io/dominicruano/sa-p8/solicitudes:1.10.1@sha256:7f8d7bea50676a0acf568a4cf5260b45c0e8a74bda5c769507fc98e92e337a96"
+    }
+  ],
+  "recent_backups": [
+    {
+      "name": "p9-quarter-hour-20261017124528",
+      "phase": "Completed",
+      "completed_at": "2026-10-17T12:46:07Z"
+    },
+    {
+      "name": "p9-quarter-hour-20261017130028",
+      "phase": "Completed",
+      "completed_at": "2026-10-17T13:01:06Z"
+    },
+    {
+      "name": "p9-quarter-hour-20261017131528",
+      "phase": "Completed",
+      "completed_at": "2026-10-17T13:16:13Z"
+    },
+    {
+      "name": "p9-quarter-hour-20261017133028",
+      "phase": "Completed",
+      "completed_at": "2026-10-17T13:31:17Z"
+    },
+    {
+      "name": "p9-quarter-hour-20261017134528",
+      "phase": "Completed",
+      "completed_at": "2026-10-17T13:46:31Z"
+    }
+  ],
+  "restores": [
+    {
+      "name": "p9-restore-20261017050035",
+      "phase": "Completed"
+    }
+  ]
+}

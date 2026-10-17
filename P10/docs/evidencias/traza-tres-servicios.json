@@ -1,0 +1,1107 @@
+{
+  "batches": [
+    {
+      "resource": {
+        "attributes": [
+          {
+            "key": "host.name",
+            "value": {
+              "stringValue": "gateway-57bb6f85d-rhr7g"
+            }
+          },
+          {
+            "key": "host.arch",
+            "value": {
+              "stringValue": "amd64"
+            }
+          },
+          {
+            "key": "process.pid",
+            "value": {
+              "intValue": "1"
+            }
+          },
+          {
+            "key": "process.executable.name",
+            "value": {
+              "stringValue": "node"
+            }
+          },
+          {
+            "key": "process.executable.path",
+            "value": {
+              "stringValue": "/usr/local/bin/node"
+            }
+          },
+          {
+            "key": "process.command_args",
+            "value": {
+              "arrayValue": {
+                "values": [
+                  {
+                    "stringValue": "/usr/local/bin/node"
+                  },
+                  {
+                    "stringValue": "--require"
+                  },
+                  {
+                    "stringValue": "./node.cjs"
+                  },
+                  {
+                    "stringValue": "/app/dist/server.js"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "key": "process.runtime.version",
+            "value": {
+              "stringValue": "22.23.3"
+            }
+          },
+          {
+            "key": "process.runtime.name",
+            "value": {
+              "stringValue": "nodejs"
+            }
+          },
+          {
+            "key": "process.runtime.description",
+            "value": {
+              "stringValue": "Node.js"
+            }
+          },
+          {
+            "key": "process.command",
+            "value": {
+              "stringValue": "/app/dist/server.js"
+            }
+          },
+          {
+            "key": "service.name",
+            "value": {
+              "stringValue": "gateway"
+            }
+          },
+          {
+            "key": "service.version",
+            "value": {
+              "stringValue": "1.10.1"
+            }
+          },
+          {
+            "key": "deployment.environment.name",
+            "value": {
+              "stringValue": "laboratorio"
+            }
+          }
+        ]
+      },
+      "scopeSpans": [
+        {
+          "scope": {
+            "name": "@opentelemetry/instrumentation-http",
+            "version": "0.223.0"
+          },
+          "spans": [
+            {
+              "traceId": "2qaj9mV8joBbmMHILzEKIw==",
+              "spanId": "3lIO5//PRZA=",
+              "flags": 257,
+              "name": "POST",
+              "kind": "SPAN_KIND_SERVER",
+              "startTimeUnixNano": "1792245323222000000",
+              "endTimeUnixNano": "1792245323562089493",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "POST"
+                  }
+                },
+                {
+                  "key": "url.scheme",
+                  "value": {
+                    "stringValue": "http"
+                  }
+                },
+                {
+                  "key": "server.address",
+                  "value": {
+                    "stringValue": "127.0.0.1"
+                  }
+                },
+                {
+                  "key": "network.peer.address",
+                  "value": {
+                    "stringValue": "127.0.0.1"
+                  }
+                },
+                {
+                  "key": "network.peer.port",
+                  "value": {
+                    "intValue": "45758"
+                  }
+                },
+                {
+                  "key": "network.protocol.version",
+                  "value": {
+                    "stringValue": "1.1"
+                  }
+                },
+                {
+                  "key": "user_agent.original",
+                  "value": {
+                    "stringValue": "node"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/api/v1/solicitudes"
+                  }
+                },
+                {
+                  "key": "client.address",
+                  "value": {
+                    "stringValue": "127.0.0.1"
+                  }
+                },
+                {
+                  "key": "server.port",
+                  "value": {
+                    "intValue": "8080"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "201"
+                  }
+                }
+              ],
+              "status": {}
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "resource": {
+        "attributes": [
+          {
+            "key": "host.name",
+            "value": {
+              "stringValue": "gateway-57bb6f85d-rhr7g"
+            }
+          },
+          {
+            "key": "host.arch",
+            "value": {
+              "stringValue": "amd64"
+            }
+          },
+          {
+            "key": "process.pid",
+            "value": {
+              "intValue": "1"
+            }
+          },
+          {
+            "key": "process.executable.name",
+            "value": {
+              "stringValue": "node"
+            }
+          },
+          {
+            "key": "process.executable.path",
+            "value": {
+              "stringValue": "/usr/local/bin/node"
+            }
+          },
+          {
+            "key": "process.command_args",
+            "value": {
+              "arrayValue": {
+                "values": [
+                  {
+                    "stringValue": "/usr/local/bin/node"
+                  },
+                  {
+                    "stringValue": "--require"
+                  },
+                  {
+                    "stringValue": "./node.cjs"
+                  },
+                  {
+                    "stringValue": "/app/dist/server.js"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "key": "process.runtime.version",
+            "value": {
+              "stringValue": "22.23.3"
+            }
+          },
+          {
+            "key": "process.runtime.name",
+            "value": {
+              "stringValue": "nodejs"
+            }
+          },
+          {
+            "key": "process.runtime.description",
+            "value": {
+              "stringValue": "Node.js"
+            }
+          },
+          {
+            "key": "process.command",
+            "value": {
+              "stringValue": "/app/dist/server.js"
+            }
+          },
+          {
+            "key": "service.name",
+            "value": {
+              "stringValue": "gateway"
+            }
+          },
+          {
+            "key": "service.version",
+            "value": {
+              "stringValue": "1.10.1"
+            }
+          },
+          {
+            "key": "deployment.environment.name",
+            "value": {
+              "stringValue": "laboratorio"
+            }
+          }
+        ]
+      },
+      "scopeSpans": [
+        {
+          "scope": {
+            "name": "@opentelemetry/instrumentation-undici",
+            "version": "0.33.0"
+          },
+          "spans": [
+            {
+              "traceId": "2qaj9mV8joBbmMHILzEKIw==",
+              "spanId": "LU0Us7guq3Q=",
+              "parentSpanId": "3lIO5//PRZA=",
+              "flags": 257,
+              "name": "GET",
+              "kind": "SPAN_KIND_CLIENT",
+              "startTimeUnixNano": "1792245323223000000",
+              "endTimeUnixNano": "1792245323230665586",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "http.request.method_original",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "url.full",
+                  "value": {
+                    "stringValue": "http://autenticacion:3000/internal/verify"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/internal/verify"
+                  }
+                },
+                {
+                  "key": "url.query",
+                  "value": {
+                    "stringValue": ""
+                  }
+                },
+                {
+                  "key": "url.scheme",
+                  "value": {
+                    "stringValue": "http"
+                  }
+                },
+                {
+                  "key": "server.address",
+                  "value": {
+                    "stringValue": "autenticacion"
+                  }
+                },
+                {
+                  "key": "server.port",
+                  "value": {
+                    "intValue": "3000"
+                  }
+                },
+                {
+                  "key": "user_agent.original",
+                  "value": {
+                    "stringValue": "node"
+                  }
+                },
+                {
+                  "key": "network.peer.address",
+                  "value": {
+                    "stringValue": "10.88.4.149"
+                  }
+                },
+                {
+                  "key": "network.peer.port",
+                  "value": {
+                    "intValue": "3000"
+                  }
+                },
+                {
+                  "key": "network.protocol.version",
+                  "value": {
+                    "stringValue": "1.1"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "204"
+                  }
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "2qaj9mV8joBbmMHILzEKIw==",
+              "spanId": "dvfnxyBEAd0=",
+              "parentSpanId": "3lIO5//PRZA=",
+              "flags": 257,
+              "name": "POST",
+              "kind": "SPAN_KIND_CLIENT",
+              "startTimeUnixNano": "1792245323232000000",
+              "endTimeUnixNano": "1792245323555509759",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "POST"
+                  }
+                },
+                {
+                  "key": "http.request.method_original",
+                  "value": {
+                    "stringValue": "POST"
+                  }
+                },
+                {
+                  "key": "url.full",
+                  "value": {
+                    "stringValue": "http://solicitudes:3001/api/v1/solicitudes"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/api/v1/solicitudes"
+                  }
+                },
+                {
+                  "key": "url.query",
+                  "value": {
+                    "stringValue": ""
+                  }
+                },
+                {
+                  "key": "url.scheme",
+                  "value": {
+                    "stringValue": "http"
+                  }
+                },
+                {
+                  "key": "server.address",
+                  "value": {
+                    "stringValue": "solicitudes"
+                  }
+                },
+                {
+                  "key": "server.port",
+                  "value": {
+                    "intValue": "3001"
+                  }
+                },
+                {
+                  "key": "user_agent.original",
+                  "value": {
+                    "stringValue": "node"
+                  }
+                },
+                {
+                  "key": "network.peer.address",
+                  "value": {
+                    "stringValue": "10.88.8.235"
+                  }
+                },
+                {
+                  "key": "network.peer.port",
+                  "value": {
+                    "intValue": "3001"
+                  }
+                },
+                {
+                  "key": "network.protocol.version",
+                  "value": {
+                    "stringValue": "1.1"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "201"
+                  }
+                }
+              ],
+              "status": {}
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "resource": {
+        "attributes": [
+          {
+            "key": "host.name",
+            "value": {
+              "stringValue": "solicitudes-5db9b4b85d-gkgmk"
+            }
+          },
+          {
+            "key": "host.arch",
+            "value": {
+              "stringValue": "amd64"
+            }
+          },
+          {
+            "key": "process.pid",
+            "value": {
+              "intValue": "1"
+            }
+          },
+          {
+            "key": "process.executable.name",
+            "value": {
+              "stringValue": "node"
+            }
+          },
+          {
+            "key": "process.executable.path",
+            "value": {
+              "stringValue": "/usr/local/bin/node"
+            }
+          },
+          {
+            "key": "process.command_args",
+            "value": {
+              "arrayValue": {
+                "values": [
+                  {
+                    "stringValue": "/usr/local/bin/node"
+                  },
+                  {
+                    "stringValue": "--require"
+                  },
+                  {
+                    "stringValue": "./node.cjs"
+                  },
+                  {
+                    "stringValue": "/app/dist/server.js"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "key": "process.runtime.version",
+            "value": {
+              "stringValue": "22.23.3"
+            }
+          },
+          {
+            "key": "process.runtime.name",
+            "value": {
+              "stringValue": "nodejs"
+            }
+          },
+          {
+            "key": "process.runtime.description",
+            "value": {
+              "stringValue": "Node.js"
+            }
+          },
+          {
+            "key": "process.command",
+            "value": {
+              "stringValue": "/app/dist/server.js"
+            }
+          },
+          {
+            "key": "process.owner",
+            "value": {
+              "stringValue": "node"
+            }
+          },
+          {
+            "key": "service.name",
+            "value": {
+              "stringValue": "solicitudes"
+            }
+          },
+          {
+            "key": "service.version",
+            "value": {
+              "stringValue": "1.10.1"
+            }
+          },
+          {
+            "key": "deployment.environment.name",
+            "value": {
+              "stringValue": "laboratorio"
+            }
+          }
+        ]
+      },
+      "scopeSpans": [
+        {
+          "scope": {
+            "name": "@opentelemetry/instrumentation-http",
+            "version": "0.223.0"
+          },
+          "spans": [
+            {
+              "traceId": "2qaj9mV8joBbmMHILzEKIw==",
+              "spanId": "I4Q7k2yBaVY=",
+              "parentSpanId": "dvfnxyBEAd0=",
+              "flags": 769,
+              "name": "POST",
+              "kind": "SPAN_KIND_SERVER",
+              "startTimeUnixNano": "1792245323239000000",
+              "endTimeUnixNano": "1792245323556128943",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "POST"
+                  }
+                },
+                {
+                  "key": "url.scheme",
+                  "value": {
+                    "stringValue": "http"
+                  }
+                },
+                {
+                  "key": "server.address",
+                  "value": {
+                    "stringValue": "solicitudes"
+                  }
+                },
+                {
+                  "key": "network.peer.address",
+                  "value": {
+                    "stringValue": "10.84.0.105"
+                  }
+                },
+                {
+                  "key": "network.peer.port",
+                  "value": {
+                    "intValue": "46724"
+                  }
+                },
+                {
+                  "key": "network.protocol.version",
+                  "value": {
+                    "stringValue": "1.1"
+                  }
+                },
+                {
+                  "key": "user_agent.original",
+                  "value": {
+                    "stringValue": "node"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/api/v1/solicitudes"
+                  }
+                },
+                {
+                  "key": "client.address",
+                  "value": {
+                    "stringValue": "10.84.0.105"
+                  }
+                },
+                {
+                  "key": "server.port",
+                  "value": {
+                    "intValue": "3001"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "201"
+                  }
+                }
+              ],
+              "status": {}
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "resource": {
+        "attributes": [
+          {
+            "key": "host.name",
+            "value": {
+              "stringValue": "solicitudes-5db9b4b85d-gkgmk"
+            }
+          },
+          {
+            "key": "host.arch",
+            "value": {
+              "stringValue": "amd64"
+            }
+          },
+          {
+            "key": "process.pid",
+            "value": {
+              "intValue": "1"
+            }
+          },
+          {
+            "key": "process.executable.name",
+            "value": {
+              "stringValue": "node"
+            }
+          },
+          {
+            "key": "process.executable.path",
+            "value": {
+              "stringValue": "/usr/local/bin/node"
+            }
+          },
+          {
+            "key": "process.command_args",
+            "value": {
+              "arrayValue": {
+                "values": [
+                  {
+                    "stringValue": "/usr/local/bin/node"
+                  },
+                  {
+                    "stringValue": "--require"
+                  },
+                  {
+                    "stringValue": "./node.cjs"
+                  },
+                  {
+                    "stringValue": "/app/dist/server.js"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "key": "process.runtime.version",
+            "value": {
+              "stringValue": "22.23.3"
+            }
+          },
+          {
+            "key": "process.runtime.name",
+            "value": {
+              "stringValue": "nodejs"
+            }
+          },
+          {
+            "key": "process.runtime.description",
+            "value": {
+              "stringValue": "Node.js"
+            }
+          },
+          {
+            "key": "process.command",
+            "value": {
+              "stringValue": "/app/dist/server.js"
+            }
+          },
+          {
+            "key": "process.owner",
+            "value": {
+              "stringValue": "node"
+            }
+          },
+          {
+            "key": "service.name",
+            "value": {
+              "stringValue": "solicitudes"
+            }
+          },
+          {
+            "key": "service.version",
+            "value": {
+              "stringValue": "1.10.1"
+            }
+          },
+          {
+            "key": "deployment.environment.name",
+            "value": {
+              "stringValue": "laboratorio"
+            }
+          }
+        ]
+      },
+      "scopeSpans": [
+        {
+          "scope": {
+            "name": "@opentelemetry/instrumentation-undici",
+            "version": "0.33.0"
+          },
+          "spans": [
+            {
+              "traceId": "2qaj9mV8joBbmMHILzEKIw==",
+              "spanId": "gJJyGZUZUNU=",
+              "parentSpanId": "I4Q7k2yBaVY=",
+              "flags": 257,
+              "name": "POST",
+              "kind": "SPAN_KIND_CLIENT",
+              "startTimeUnixNano": "1792245323313000000",
+              "endTimeUnixNano": "1792245323530645094",
+              "attributes": [
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "POST"
+                  }
+                },
+                {
+                  "key": "http.request.method_original",
+                  "value": {
+                    "stringValue": "POST"
+                  }
+                },
+                {
+                  "key": "url.full",
+                  "value": {
+                    "stringValue": "http://catalogo:8000/api/v1/catalogo/graphql"
+                  }
+                },
+                {
+                  "key": "url.path",
+                  "value": {
+                    "stringValue": "/api/v1/catalogo/graphql"
+                  }
+                },
+                {
+                  "key": "url.query",
+                  "value": {
+                    "stringValue": ""
+                  }
+                },
+                {
+                  "key": "url.scheme",
+                  "value": {
+                    "stringValue": "http"
+                  }
+                },
+                {
+                  "key": "server.address",
+                  "value": {
+                    "stringValue": "catalogo"
+                  }
+                },
+                {
+                  "key": "server.port",
+                  "value": {
+                    "intValue": "8000"
+                  }
+                },
+                {
+                  "key": "user_agent.original",
+                  "value": {
+                    "stringValue": "node"
+                  }
+                },
+                {
+                  "key": "network.peer.address",
+                  "value": {
+                    "stringValue": "10.88.12.150"
+                  }
+                },
+                {
+                  "key": "network.peer.port",
+                  "value": {
+                    "intValue": "8000"
+                  }
+                },
+                {
+                  "key": "network.protocol.version",
+                  "value": {
+                    "stringValue": "1.1"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ],
+              "status": {}
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "resource": {
+        "attributes": [
+          {
+            "key": "telemetry.sdk.language",
+            "value": {
+              "stringValue": "python"
+            }
+          },
+          {
+            "key": "telemetry.sdk.name",
+            "value": {
+              "stringValue": "opentelemetry"
+            }
+          },
+          {
+            "key": "telemetry.sdk.version",
+            "value": {
+              "stringValue": "1.45.1"
+            }
+          },
+          {
+            "key": "service.instance.id",
+            "value": {
+              "stringValue": "8585b2a4-5808-4a21-af6d-34822a2d3724"
+            }
+          },
+          {
+            "key": "service.name",
+            "value": {
+              "stringValue": "catalogo"
+            }
+          },
+          {
+            "key": "service.version",
+            "value": {
+              "stringValue": "1.10.1"
+            }
+          }
+        ]
+      },
+      "scopeSpans": [
+        {
+          "scope": {
+            "name": "opentelemetry.instrumentation.fastapi",
+            "version": "0.66b1"
+          },
+          "spans": [
+            {
+              "traceId": "2qaj9mV8joBbmMHILzEKIw==",
+              "spanId": "9+kXNSAxALg=",
+              "parentSpanId": "gJJyGZUZUNU=",
+              "flags": 768,
+              "name": "POST /api/v1/catalogo/graphql",
+              "kind": "SPAN_KIND_SERVER",
+              "startTimeUnixNano": "1792245323370446543",
+              "endTimeUnixNano": "1792245323514440357",
+              "attributes": [
+                {
+                  "key": "http.scheme",
+                  "value": {
+                    "stringValue": "http"
+                  }
+                },
+                {
+                  "key": "http.host",
+                  "value": {
+                    "stringValue": "10.84.0.104:8000"
+                  }
+                },
+                {
+                  "key": "net.host.port",
+                  "value": {
+                    "intValue": "8000"
+                  }
+                },
+                {
+                  "key": "http.flavor",
+                  "value": {
+                    "stringValue": "1.1"
+                  }
+                },
+                {
+                  "key": "http.target",
+                  "value": {
+                    "stringValue": "/api/v1/catalogo/graphql"
+                  }
+                },
+                {
+                  "key": "http.url",
+                  "value": {
+                    "stringValue": "http://catalogo:8000/api/v1/catalogo/graphql"
+                  }
+                },
+                {
+                  "key": "http.method",
+                  "value": {
+                    "stringValue": "POST"
+                  }
+                },
+                {
+                  "key": "http.server_name",
+                  "value": {
+                    "stringValue": "catalogo:8000"
+                  }
+                },
+                {
+                  "key": "http.user_agent",
+                  "value": {
+                    "stringValue": "node"
+                  }
+                },
+                {
+                  "key": "net.peer.ip",
+                  "value": {
+                    "stringValue": "10.84.1.74"
+                  }
+                },
+                {
+                  "key": "net.peer.port",
+                  "value": {
+                    "intValue": "35526"
+                  }
+                },
+                {
+                  "key": "http.route",
+                  "value": {
+                    "stringValue": "/api/v1/catalogo/graphql"
+                  }
+                },
+                {
+                  "key": "http.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "2qaj9mV8joBbmMHILzEKIw==",
+              "spanId": "V8WzNfQsUJs=",
+              "parentSpanId": "9+kXNSAxALg=",
+              "flags": 256,
+              "name": "POST /api/v1/catalogo/graphql http receive",
+              "kind": "SPAN_KIND_INTERNAL",
+              "startTimeUnixNano": "1792245323371424920",
+              "endTimeUnixNano": "1792245323371476472",
+              "attributes": [
+                {
+                  "key": "asgi.event.type",
+                  "value": {
+                    "stringValue": "http.request"
+                  }
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "2qaj9mV8joBbmMHILzEKIw==",
+              "spanId": "jYJkSzxqkwk=",
+              "parentSpanId": "9+kXNSAxALg=",
+              "flags": 256,
+              "name": "POST /api/v1/catalogo/graphql http send",
+              "kind": "SPAN_KIND_INTERNAL",
+              "startTimeUnixNano": "1792245323512139634",
+              "endTimeUnixNano": "1792245323512225109",
+              "attributes": [
+                {
+                  "key": "asgi.event.type",
+                  "value": {
+                    "stringValue": "http.response.start"
+                  }
+                },
+                {
+                  "key": "http.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "2qaj9mV8joBbmMHILzEKIw==",
+              "spanId": "IGo8St3uL0Q=",
+              "parentSpanId": "9+kXNSAxALg=",
+              "flags": 256,
+              "name": "POST /api/v1/catalogo/graphql http send",
+              "kind": "SPAN_KIND_INTERNAL",
+              "startTimeUnixNano": "1792245323513949154",
+              "endTimeUnixNano": "1792245323514011274",
+              "attributes": [
+                {
+                  "key": "asgi.event.type",
+                  "value": {
+                    "stringValue": "http.response.body"
+                  }
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "2qaj9mV8joBbmMHILzEKIw==",
+              "spanId": "pZRauxWkdL4=",
+              "parentSpanId": "9+kXNSAxALg=",
+              "flags": 256,
+              "name": "POST /api/v1/catalogo/graphql http send",
+              "kind": "SPAN_KIND_INTERNAL",
+              "startTimeUnixNano": "1792245323514256660",
+              "endTimeUnixNano": "1792245323514287335",
+              "attributes": [
+                {
+                  "key": "asgi.event.type",
+                  "value": {
+                    "stringValue": "http.response.body"
+                  }
+                }
+              ],
+              "status": {}
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

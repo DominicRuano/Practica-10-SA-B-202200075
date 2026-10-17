@@ -1,0 +1,17 @@
+{
+  "status": "success",
+  "data": {
+    "resultType": "vector",
+    "result": [
+      {
+        "metric": {
+          "__name__": "p10:error_budget_latency:consumed24h"
+        },
+        "value": [
+          1792245401.044,
+          "1.2196468947254724"
+        ]
+      }
+    ]
+  }
+}

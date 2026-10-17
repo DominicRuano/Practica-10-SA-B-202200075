@@ -1,0 +1,83 @@
+{
+  "apiVersion": "monitoring.coreos.com/v1",
+  "kind": "PrometheusRule",
+  "metadata": {
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "p10-observability:monitoring.coreos.com/PrometheusRule:observabilidad/p10-slo"
+    },
+    "creationTimestamp": "2026-10-17T06:15:09Z",
+    "generation": 2,
+    "name": "p10-slo",
+    "namespace": "observabilidad",
+    "resourceVersion": "1792217919988239010",
+    "uid": "5459754a-2edd-4fff-9145-e5045b6b015b"
+  },
+  "spec": {
+    "groups": [
+      {
+        "interval": "10s",
+        "name": "p10-slo",
+        "rules": [
+          {
+            "expr": "1 - (sum(increase(http_requests_total{service=\"gateway\",status=~\"5..\"}[24h])) or vector(0)) / clamp_min(sum(increase(http_requests_total{service=\"gateway\"}[24h])), 1)",
+            "record": "p10:sli_availability:ratio24h"
+          },
+          {
+            "expr": "sum(increase(http_request_duration_seconds_bucket{service=\"gateway\",le=\"0.5\"}[24h])) / clamp_min(sum(increase(http_request_duration_seconds_count{service=\"gateway\"}[24h])), 1)",
+            "record": "p10:sli_latency:ratio24h"
+          },
+          {
+            "expr": "(1 - p10:sli_availability:ratio24h) / 0.01",
+            "record": "p10:error_budget_availability:consumed24h"
+          },
+          {
+            "expr": "(1 - p10:sli_latency:ratio24h) / 0.05",
+            "record": "p10:error_budget_latency:consumed24h"
+          },
+          {
+            "expr": "((sum(rate(http_requests_total{service=\"gateway\",status=~\"5..\"}[1m])) or vector(0)) / clamp_min(sum(rate(http_requests_total{service=\"gateway\"}[1m])), 0.000001)) / 0.01",
+            "record": "p10:availability:burnrate1m"
+          },
+          {
+            "expr": "(1 - sum(rate(http_request_duration_seconds_bucket{service=\"gateway\",le=\"0.5\"}[1m])) / clamp_min(sum(rate(http_request_duration_seconds_count{service=\"gateway\"}[1m])), 0.000001)) / 0.05",
+            "record": "p10:latency:burnrate1m"
+          },
+          {
+            "expr": "((sum(rate(http_requests_total{service=\"gateway\",status=~\"5..\"}[5m])) or vector(0)) / clamp_min(sum(rate(http_requests_total{service=\"gateway\"}[5m])), 0.000001)) / 0.01",
+            "record": "p10:availability:burnrate5m"
+          },
+          {
+            "expr": "(1 - sum(rate(http_request_duration_seconds_bucket{service=\"gateway\",le=\"0.5\"}[5m])) / clamp_min(sum(rate(http_request_duration_seconds_count{service=\"gateway\"}[5m])), 0.000001)) / 0.05",
+            "record": "p10:latency:burnrate5m"
+          },
+          {
+            "alert": "P10AvailabilityBudgetBurn",
+            "annotations": {
+              "runbook_url": "https://github.com/DominicRuano/Practica-10-SA-B-202200075/blob/main/P10/docs/runbooks.md#disponibilidad",
+              "summary": "Las peticiones fallidas consumen rapidamente el presupuesto de disponibilidad"
+            },
+            "expr": "p10:availability:burnrate5m > 14.4 and p10:availability:burnrate1m > 14.4 and sum(increase(http_requests_total{service=\"gateway\"}[1m])) >= 20",
+            "for": "15s",
+            "labels": {
+              "practice": "p10",
+              "severity": "critical"
+            }
+          },
+          {
+            "alert": "P10LatencyBudgetBurn",
+            "annotations": {
+              "runbook_url": "https://github.com/DominicRuano/Practica-10-SA-B-202200075/blob/main/P10/docs/runbooks.md#latencia",
+              "summary": "La lentitud consume rapidamente el presupuesto de latencia"
+            },
+            "expr": "p10:latency:burnrate5m > 2 and p10:latency:burnrate1m > 2 and sum(increase(http_requests_total{service=\"gateway\"}[1m])) >= 20",
+            "for": "15s",
+            "labels": {
+              "practice": "p10",
+              "severity": "warning"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

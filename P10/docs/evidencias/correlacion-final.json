@@ -1,0 +1,13 @@
+{
+  "trace_id": "daa6a3f6657c8e805b98c1c82f310a23",
+  "trace_services": [
+    "catalogo",
+    "gateway",
+    "solicitudes"
+  ],
+  "log_services": [
+    "catalogo",
+    "gateway",
+    "solicitudes"
+  ]
+}

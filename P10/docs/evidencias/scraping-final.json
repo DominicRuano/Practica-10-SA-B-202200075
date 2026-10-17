@@ -1,0 +1,35 @@
+{
+  "status": "success",
+  "data": {
+    "resultType": "vector",
+    "result": [
+      {
+        "metric": {
+          "service": "solicitudes"
+        },
+        "value": [
+          1792245399.851,
+          "2"
+        ]
+      },
+      {
+        "metric": {
+          "service": "catalogo"
+        },
+        "value": [
+          1792245399.851,
+          "2"
+        ]
+      },
+      {
+        "metric": {
+          "service": "gateway"
+        },
+        "value": [
+          1792245399.851,
+          "2"
+        ]
+      }
+    ]
+  }
+}

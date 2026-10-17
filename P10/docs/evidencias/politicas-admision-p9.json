@@ -1,0 +1,613 @@
+{
+  "items": [
+    {
+      "apiVersion": "kyverno.io/v1",
+      "kind": "ClusterPolicy",
+      "metadata": {
+        "annotations": {
+          "argocd.argoproj.io/tracking-id": "p9-platform:kyverno.io/ClusterPolicy:sa-p9/sa-p9-disallow-latest"
+        },
+        "creationTimestamp": "2026-10-17T04:42:05Z",
+        "generation": 1,
+        "labels": {
+          "app.kubernetes.io/instance": "p9-platform",
+          "app.kubernetes.io/managed-by": "Helm",
+          "app.kubernetes.io/name": "sa-platform",
+          "app.kubernetes.io/part-of": "sa-platform",
+          "app.kubernetes.io/version": "1.1.0",
+          "helm.sh/chart": "sa-platform-0.9.0"
+        },
+        "name": "sa-p9-disallow-latest",
+        "resourceVersion": "1792212125899695009",
+        "uid": "13d3c1bc-4080-49c0-b8a5-ff301bd41e28"
+      },
+      "spec": {
+        "admission": true,
+        "background": true,
+        "emitWarning": false,
+        "rules": [
+          {
+            "match": {
+              "any": [
+                {
+                  "resources": {
+                    "kinds": [
+                      "Pod"
+                    ],
+                    "namespaces": [
+                      "sa-p9"
+                    ]
+                  }
+                }
+              ]
+            },
+            "name": "require-versioned-images",
+            "skipBackgroundRequests": true,
+            "validate": {
+              "allowExistingViolations": true,
+              "failureAction": "Enforce",
+              "message": "Las imagenes deben utilizar una etiqueta versionada.",
+              "pattern": {
+                "spec": {
+                  "containers": [
+                    {
+                      "image": "!*:latest"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ],
+        "validationFailureAction": "Audit"
+      },
+      "status": {
+        "autogen": {
+          "rules": [
+            {
+              "match": {
+                "any": [
+                  {
+                    "resources": {
+                      "kinds": [
+                        "apps/v1/DaemonSet",
+                        "apps/v1/Deployment",
+                        "batch/v1/Job",
+                        "apps/v1/ReplicaSet",
+                        "v1/ReplicationController",
+                        "apps/v1/StatefulSet"
+                      ],
+                      "namespaces": [
+                        "sa-p9"
+                      ]
+                    }
+                  }
+                ],
+                "resources": {}
+              },
+              "name": "autogen-require-versioned-images",
+              "skipBackgroundRequests": true,
+              "validate": {
+                "allowExistingViolations": true,
+                "failureAction": "Enforce",
+                "message": "Las imagenes deben utilizar una etiqueta versionada.",
+                "pattern": {
+                  "spec": {
+                    "template": {
+                      "spec": {
+                        "containers": [
+                          {
+                            "image": "!*:latest"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "match": {
+                "any": [
+                  {
+                    "resources": {
+                      "kinds": [
+                        "batch/v1/CronJob"
+                      ],
+                      "namespaces": [
+                        "sa-p9"
+                      ]
+                    }
+                  }
+                ],
+                "resources": {}
+              },
+              "name": "autogen-cronjob-require-versioned-images",
+              "skipBackgroundRequests": true,
+              "validate": {
+                "allowExistingViolations": true,
+                "failureAction": "Enforce",
+                "message": "Las imagenes deben utilizar una etiqueta versionada.",
+                "pattern": {
+                  "spec": {
+                    "jobTemplate": {
+                      "spec": {
+                        "template": {
+                          "spec": {
+                            "containers": [
+                              {
+                                "image": "!*:latest"
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "conditions": [
+          {
+            "lastTransitionTime": "2026-10-17T04:42:05Z",
+            "message": "Ready",
+            "reason": "Succeeded",
+            "status": "True",
+            "type": "Ready"
+          }
+        ],
+        "rulecount": {
+          "generate": 0,
+          "mutate": 0,
+          "validate": 1,
+          "verifyimages": 0
+        },
+        "validatingadmissionpolicy": {
+          "generated": false,
+          "message": ""
+        }
+      }
+    },
+    {
+      "apiVersion": "kyverno.io/v1",
+      "kind": "ClusterPolicy",
+      "metadata": {
+        "annotations": {
+          "argocd.argoproj.io/tracking-id": "p9-platform:kyverno.io/ClusterPolicy:sa-p9/sa-p9-require-non-root"
+        },
+        "creationTimestamp": "2026-10-17T04:42:05Z",
+        "generation": 2,
+        "labels": {
+          "app.kubernetes.io/instance": "p9-platform",
+          "app.kubernetes.io/managed-by": "Helm",
+          "app.kubernetes.io/name": "sa-platform",
+          "app.kubernetes.io/part-of": "sa-platform",
+          "app.kubernetes.io/version": "1.1.0",
+          "helm.sh/chart": "sa-platform-0.9.0"
+        },
+        "name": "sa-p9-require-non-root",
+        "resourceVersion": "1792212738733071005",
+        "uid": "d239a723-8308-4859-9de5-646e2292d948"
+      },
+      "spec": {
+        "admission": true,
+        "background": true,
+        "emitWarning": false,
+        "rules": [
+          {
+            "match": {
+              "any": [
+                {
+                  "resources": {
+                    "kinds": [
+                      "Pod"
+                    ],
+                    "namespaces": [
+                      "sa-p9"
+                    ]
+                  }
+                }
+              ]
+            },
+            "name": "require-non-root",
+            "skipBackgroundRequests": true,
+            "validate": {
+              "allowExistingViolations": true,
+              "anyPattern": [
+                {
+                  "spec": {
+                    "containers": [
+                      {
+                        "securityContext": {
+                          "=(runAsNonRoot)": true,
+                          "allowPrivilegeEscalation": false
+                        }
+                      }
+                    ],
+                    "securityContext": {
+                      "runAsNonRoot": true
+                    }
+                  }
+                },
+                {
+                  "spec": {
+                    "containers": [
+                      {
+                        "securityContext": {
+                          "allowPrivilegeEscalation": false,
+                          "runAsNonRoot": true
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "failureAction": "Enforce",
+              "message": "Los pods deben ejecutarse como usuarios sin privilegios."
+            }
+          }
+        ],
+        "validationFailureAction": "Audit"
+      },
+      "status": {
+        "autogen": {
+          "rules": [
+            {
+              "match": {
+                "any": [
+                  {
+                    "resources": {
+                      "kinds": [
+                        "apps/v1/DaemonSet",
+                        "apps/v1/Deployment",
+                        "batch/v1/Job",
+                        "apps/v1/ReplicaSet",
+                        "v1/ReplicationController",
+                        "apps/v1/StatefulSet"
+                      ],
+                      "namespaces": [
+                        "sa-p9"
+                      ]
+                    }
+                  }
+                ],
+                "resources": {}
+              },
+              "name": "autogen-require-non-root",
+              "skipBackgroundRequests": true,
+              "validate": {
+                "allowExistingViolations": true,
+                "anyPattern": [
+                  {
+                    "spec": {
+                      "template": {
+                        "spec": {
+                          "containers": [
+                            {
+                              "securityContext": {
+                                "=(runAsNonRoot)": true,
+                                "allowPrivilegeEscalation": false
+                              }
+                            }
+                          ],
+                          "securityContext": {
+                            "runAsNonRoot": true
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "spec": {
+                      "template": {
+                        "spec": {
+                          "containers": [
+                            {
+                              "securityContext": {
+                                "allowPrivilegeEscalation": false,
+                                "runAsNonRoot": true
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                ],
+                "failureAction": "Enforce",
+                "message": "Los pods deben ejecutarse como usuarios sin privilegios."
+              }
+            },
+            {
+              "match": {
+                "any": [
+                  {
+                    "resources": {
+                      "kinds": [
+                        "batch/v1/CronJob"
+                      ],
+                      "namespaces": [
+                        "sa-p9"
+                      ]
+                    }
+                  }
+                ],
+                "resources": {}
+              },
+              "name": "autogen-cronjob-require-non-root",
+              "skipBackgroundRequests": true,
+              "validate": {
+                "allowExistingViolations": true,
+                "anyPattern": [
+                  {
+                    "spec": {
+                      "jobTemplate": {
+                        "spec": {
+                          "template": {
+                            "spec": {
+                              "containers": [
+                                {
+                                  "securityContext": {
+                                    "=(runAsNonRoot)": true,
+                                    "allowPrivilegeEscalation": false
+                                  }
+                                }
+                              ],
+                              "securityContext": {
+                                "runAsNonRoot": true
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "spec": {
+                      "jobTemplate": {
+                        "spec": {
+                          "template": {
+                            "spec": {
+                              "containers": [
+                                {
+                                  "securityContext": {
+                                    "allowPrivilegeEscalation": false,
+                                    "runAsNonRoot": true
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ],
+                "failureAction": "Enforce",
+                "message": "Los pods deben ejecutarse como usuarios sin privilegios."
+              }
+            }
+          ]
+        },
+        "conditions": [
+          {
+            "lastTransitionTime": "2026-10-17T04:42:06Z",
+            "message": "Ready",
+            "reason": "Succeeded",
+            "status": "True",
+            "type": "Ready"
+          }
+        ],
+        "rulecount": {
+          "generate": 0,
+          "mutate": 0,
+          "validate": 1,
+          "verifyimages": 0
+        },
+        "validatingadmissionpolicy": {
+          "generated": false,
+          "message": ""
+        }
+      }
+    },
+    {
+      "apiVersion": "kyverno.io/v1",
+      "kind": "ClusterPolicy",
+      "metadata": {
+        "annotations": {
+          "argocd.argoproj.io/tracking-id": "p9-platform:kyverno.io/ClusterPolicy:sa-p9/sa-p9-require-resources"
+        },
+        "creationTimestamp": "2026-10-17T04:42:05Z",
+        "generation": 1,
+        "labels": {
+          "app.kubernetes.io/instance": "p9-platform",
+          "app.kubernetes.io/managed-by": "Helm",
+          "app.kubernetes.io/name": "sa-platform",
+          "app.kubernetes.io/part-of": "sa-platform",
+          "app.kubernetes.io/version": "1.1.0",
+          "helm.sh/chart": "sa-platform-0.9.0"
+        },
+        "name": "sa-p9-require-resources",
+        "resourceVersion": "1792212126426319009",
+        "uid": "9d4bc22b-a224-4549-86eb-ac809760eca4"
+      },
+      "spec": {
+        "admission": true,
+        "background": true,
+        "emitWarning": false,
+        "rules": [
+          {
+            "match": {
+              "any": [
+                {
+                  "resources": {
+                    "kinds": [
+                      "Pod"
+                    ],
+                    "namespaces": [
+                      "sa-p9"
+                    ]
+                  }
+                }
+              ]
+            },
+            "name": "require-requests-and-limits",
+            "skipBackgroundRequests": true,
+            "validate": {
+              "allowExistingViolations": true,
+              "failureAction": "Enforce",
+              "message": "Cada contenedor debe declarar solicitudes y limites de CPU y memoria.",
+              "pattern": {
+                "spec": {
+                  "containers": [
+                    {
+                      "resources": {
+                        "limits": {
+                          "cpu": "?*",
+                          "memory": "?*"
+                        },
+                        "requests": {
+                          "cpu": "?*",
+                          "memory": "?*"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ],
+        "validationFailureAction": "Audit"
+      },
+      "status": {
+        "autogen": {
+          "rules": [
+            {
+              "match": {
+                "any": [
+                  {
+                    "resources": {
+                      "kinds": [
+                        "apps/v1/DaemonSet",
+                        "apps/v1/Deployment",
+                        "batch/v1/Job",
+                        "apps/v1/ReplicaSet",
+                        "v1/ReplicationController",
+                        "apps/v1/StatefulSet"
+                      ],
+                      "namespaces": [
+                        "sa-p9"
+                      ]
+                    }
+                  }
+                ],
+                "resources": {}
+              },
+              "name": "autogen-require-requests-and-limits",
+              "skipBackgroundRequests": true,
+              "validate": {
+                "allowExistingViolations": true,
+                "failureAction": "Enforce",
+                "message": "Cada contenedor debe declarar solicitudes y limites de CPU y memoria.",
+                "pattern": {
+                  "spec": {
+                    "template": {
+                      "spec": {
+                        "containers": [
+                          {
+                            "resources": {
+                              "limits": {
+                                "cpu": "?*",
+                                "memory": "?*"
+                              },
+                              "requests": {
+                                "cpu": "?*",
+                                "memory": "?*"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "match": {
+                "any": [
+                  {
+                    "resources": {
+                      "kinds": [
+                        "batch/v1/CronJob"
+                      ],
+                      "namespaces": [
+                        "sa-p9"
+                      ]
+                    }
+                  }
+                ],
+                "resources": {}
+              },
+              "name": "autogen-cronjob-require-requests-and-limits",
+              "skipBackgroundRequests": true,
+              "validate": {
+                "allowExistingViolations": true,
+                "failureAction": "Enforce",
+                "message": "Cada contenedor debe declarar solicitudes y limites de CPU y memoria.",
+                "pattern": {
+                  "spec": {
+                    "jobTemplate": {
+                      "spec": {
+                        "template": {
+                          "spec": {
+                            "containers": [
+                              {
+                                "resources": {
+                                  "limits": {
+                                    "cpu": "?*",
+                                    "memory": "?*"
+                                  },
+                                  "requests": {
+                                    "cpu": "?*",
+                                    "memory": "?*"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "conditions": [
+          {
+            "lastTransitionTime": "2026-10-17T04:42:06Z",
+            "message": "Ready",
+            "reason": "Succeeded",
+            "status": "True",
+            "type": "Ready"
+          }
+        ],
+        "rulecount": {
+          "generate": 0,
+          "mutate": 0,
+          "validate": 1,
+          "verifyimages": 0
+        },
+        "validatingadmissionpolicy": {
+          "generated": false,
+          "message": "skip generating ValidatingAdmissionPolicy for non CEL rules."
+        }
+      }
+    }
+  ]
+}

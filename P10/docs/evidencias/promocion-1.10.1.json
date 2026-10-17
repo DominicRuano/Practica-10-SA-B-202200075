@@ -1,0 +1,606 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "argoproj.io/v1alpha1",
+            "kind": "AnalysisRun",
+            "metadata": {
+                "annotations": {
+                    "rollout.argoproj.io/revision": "4"
+                },
+                "creationTimestamp": "2026-10-17T13:33:59Z",
+                "generation": 4,
+                "labels": {
+                    "app.kubernetes.io/instance": "p9-platform",
+                    "app.kubernetes.io/name": "catalogo",
+                    "rollout-type": "Step",
+                    "rollouts-pod-template-hash": "55dd789c55",
+                    "step-index": "2"
+                },
+                "name": "catalogo-55dd789c55-4-2",
+                "namespace": "sa-p9",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "argoproj.io/v1alpha1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "Rollout",
+                        "name": "catalogo",
+                        "uid": "cdd028f1-1832-4b16-801d-d137dc97fd97"
+                    }
+                ],
+                "resourceVersion": "1792244059043215019",
+                "uid": "b13012c8-25d1-444c-a178-e48139af617f"
+            },
+            "spec": {
+                "args": [
+                    {
+                        "name": "service",
+                        "value": "catalogo"
+                    },
+                    {
+                        "name": "hash",
+                        "value": "55dd789c55"
+                    }
+                ],
+                "metrics": [
+                    {
+                        "count": 3,
+                        "failureLimit": 1,
+                        "interval": "10s",
+                        "name": "candidate-traffic",
+                        "provider": {
+                            "prometheus": {
+                                "address": "http://p10-monitoring-prometheus.observabilidad.svc:9090",
+                                "authentication": {
+                                    "oauth2": {},
+                                    "sigv4": {}
+                                },
+                                "query": "sum(increase(http_requests_total{service=\"{{args.service}}\",pod_template_hash=\"{{args.hash}}\"}[1m])) or vector(0)"
+                            }
+                        },
+                        "successCondition": "len(result) == 1 \u0026\u0026 result[0] \u003e= 5"
+                    },
+                    {
+                        "count": 3,
+                        "failureLimit": 1,
+                        "interval": "10s",
+                        "name": "candidate-error-rate",
+                        "provider": {
+                            "prometheus": {
+                                "address": "http://p10-monitoring-prometheus.observabilidad.svc:9090",
+                                "authentication": {
+                                    "oauth2": {},
+                                    "sigv4": {}
+                                },
+                                "query": "(sum(rate(http_requests_total{service=\"{{args.service}}\",pod_template_hash=\"{{args.hash}}\",status=~\"5..\"}[1m])) or vector(0)) / clamp_min(sum(rate(http_requests_total{service=\"{{args.service}}\",pod_template_hash=\"{{args.hash}}\"}[1m])), 0.000001)"
+                            }
+                        },
+                        "successCondition": "len(result) == 1 \u0026\u0026 result[0] \u003c= 0.01"
+                    },
+                    {
+                        "count": 3,
+                        "failureLimit": 1,
+                        "interval": "10s",
+                        "name": "candidate-p95",
+                        "provider": {
+                            "prometheus": {
+                                "address": "http://p10-monitoring-prometheus.observabilidad.svc:9090",
+                                "authentication": {
+                                    "oauth2": {},
+                                    "sigv4": {}
+                                },
+                                "query": "histogram_quantile(0.95, sum by (le) (rate(http_request_duration_seconds_bucket{service=\"{{args.service}}\",pod_template_hash=\"{{args.hash}}\"}[1m])))"
+                            }
+                        },
+                        "successCondition": "len(result) == 1 \u0026\u0026 !isNaN(result[0]) \u0026\u0026 result[0] \u003c= 0.5"
+                    }
+                ]
+            },
+            "status": {
+                "completedAt": "2026-10-17T13:34:19Z",
+                "dryRunSummary": {},
+                "metricResults": [
+                    {
+                        "consecutiveSuccess": 3,
+                        "count": 3,
+                        "measurements": [
+                            {
+                                "finishedAt": "2026-10-17T13:33:59Z",
+                                "phase": "Successful",
+                                "startedAt": "2026-10-17T13:33:59Z",
+                                "value": "[0]"
+                            },
+                            {
+                                "finishedAt": "2026-10-17T13:34:09Z",
+                                "phase": "Successful",
+                                "startedAt": "2026-10-17T13:34:09Z",
+                                "value": "[0]"
+                            },
+                            {
+                                "finishedAt": "2026-10-17T13:34:19Z",
+                                "phase": "Successful",
+                                "startedAt": "2026-10-17T13:34:19Z",
+                                "value": "[0]"
+                            }
+                        ],
+                        "metadata": {
+                            "ResolvedPrometheusQuery": "(sum(rate(http_requests_total{service=\"catalogo\",pod_template_hash=\"55dd789c55\",status=~\"5..\"}[1m])) or vector(0)) / clamp_min(sum(rate(http_requests_total{service=\"catalogo\",pod_template_hash=\"55dd789c55\"}[1m])), 0.000001)"
+                        },
+                        "name": "candidate-error-rate",
+                        "phase": "Successful",
+                        "successful": 3
+                    },
+                    {
+                        "consecutiveSuccess": 3,
+                        "count": 3,
+                        "measurements": [
+                            {
+                                "finishedAt": "2026-10-17T13:33:59Z",
+                                "phase": "Successful",
+                                "startedAt": "2026-10-17T13:33:59Z",
+                                "value": "[0.41041666666666626]"
+                            },
+                            {
+                                "finishedAt": "2026-10-17T13:34:09Z",
+                                "phase": "Successful",
+                                "startedAt": "2026-10-17T13:34:09Z",
+                                "value": "[0.39583333333333337]"
+                            },
+                            {
+                                "finishedAt": "2026-10-17T13:34:19Z",
+                                "phase": "Successful",
+                                "startedAt": "2026-10-17T13:34:19Z",
+                                "value": "[0.35833333333333334]"
+                            }
+                        ],
+                        "metadata": {
+                            "ResolvedPrometheusQuery": "histogram_quantile(0.95, sum by (le) (rate(http_request_duration_seconds_bucket{service=\"catalogo\",pod_template_hash=\"55dd789c55\"}[1m])))"
+                        },
+                        "name": "candidate-p95",
+                        "phase": "Successful",
+                        "successful": 3
+                    },
+                    {
+                        "consecutiveSuccess": 3,
+                        "count": 3,
+                        "measurements": [
+                            {
+                                "finishedAt": "2026-10-17T13:33:59Z",
+                                "phase": "Successful",
+                                "startedAt": "2026-10-17T13:33:59Z",
+                                "value": "[75.6]"
+                            },
+                            {
+                                "finishedAt": "2026-10-17T13:34:09Z",
+                                "phase": "Successful",
+                                "startedAt": "2026-10-17T13:34:09Z",
+                                "value": "[84]"
+                            },
+                            {
+                                "finishedAt": "2026-10-17T13:34:19Z",
+                                "phase": "Successful",
+                                "startedAt": "2026-10-17T13:34:19Z",
+                                "value": "[81.6]"
+                            }
+                        ],
+                        "metadata": {
+                            "ResolvedPrometheusQuery": "sum(increase(http_requests_total{service=\"catalogo\",pod_template_hash=\"55dd789c55\"}[1m])) or vector(0)"
+                        },
+                        "name": "candidate-traffic",
+                        "phase": "Successful",
+                        "successful": 3
+                    }
+                ],
+                "phase": "Successful",
+                "runSummary": {
+                    "count": 3,
+                    "successful": 3
+                },
+                "startedAt": "2026-10-17T13:33:59Z"
+            }
+        },
+        {
+            "apiVersion": "argoproj.io/v1alpha1",
+            "kind": "AnalysisRun",
+            "metadata": {
+                "annotations": {
+                    "rollout.argoproj.io/revision": "4"
+                },
+                "creationTimestamp": "2026-10-17T13:33:59Z",
+                "generation": 4,
+                "labels": {
+                    "app.kubernetes.io/instance": "p9-platform",
+                    "app.kubernetes.io/name": "gateway",
+                    "rollout-type": "Step",
+                    "rollouts-pod-template-hash": "59d999db49",
+                    "step-index": "2"
+                },
+                "name": "gateway-59d999db49-4-2",
+                "namespace": "sa-p9",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "argoproj.io/v1alpha1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "Rollout",
+                        "name": "gateway",
+                        "uid": "df28b107-b4a0-4f34-89fd-1a42c3ba7b50"
+                    }
+                ],
+                "resourceVersion": "1792244059050015011",
+                "uid": "515b4207-1060-4ae2-b375-b0a84d624b31"
+            },
+            "spec": {
+                "args": [
+                    {
+                        "name": "service",
+                        "value": "gateway"
+                    },
+                    {
+                        "name": "hash",
+                        "value": "59d999db49"
+                    }
+                ],
+                "metrics": [
+                    {
+                        "count": 3,
+                        "failureLimit": 1,
+                        "interval": "10s",
+                        "name": "candidate-traffic",
+                        "provider": {
+                            "prometheus": {
+                                "address": "http://p10-monitoring-prometheus.observabilidad.svc:9090",
+                                "authentication": {
+                                    "oauth2": {},
+                                    "sigv4": {}
+                                },
+                                "query": "sum(increase(http_requests_total{service=\"{{args.service}}\",pod_template_hash=\"{{args.hash}}\"}[1m])) or vector(0)"
+                            }
+                        },
+                        "successCondition": "len(result) == 1 \u0026\u0026 result[0] \u003e= 5"
+                    },
+                    {
+                        "count": 3,
+                        "failureLimit": 1,
+                        "interval": "10s",
+                        "name": "candidate-error-rate",
+                        "provider": {
+                            "prometheus": {
+                                "address": "http://p10-monitoring-prometheus.observabilidad.svc:9090",
+                                "authentication": {
+                                    "oauth2": {},
+                                    "sigv4": {}
+                                },
+                                "query": "(sum(rate(http_requests_total{service=\"{{args.service}}\",pod_template_hash=\"{{args.hash}}\",status=~\"5..\"}[1m])) or vector(0)) / clamp_min(sum(rate(http_requests_total{service=\"{{args.service}}\",pod_template_hash=\"{{args.hash}}\"}[1m])), 0.000001)"
+                            }
+                        },
+                        "successCondition": "len(result) == 1 \u0026\u0026 result[0] \u003c= 0.01"
+                    },
+                    {
+                        "count": 3,
+                        "failureLimit": 1,
+                        "interval": "10s",
+                        "name": "candidate-p95",
+                        "provider": {
+                            "prometheus": {
+                                "address": "http://p10-monitoring-prometheus.observabilidad.svc:9090",
+                                "authentication": {
+                                    "oauth2": {},
+                                    "sigv4": {}
+                                },
+                                "query": "histogram_quantile(0.95, sum by (le) (rate(http_request_duration_seconds_bucket{service=\"{{args.service}}\",pod_template_hash=\"{{args.hash}}\"}[1m])))"
+                            }
+                        },
+                        "successCondition": "len(result) == 1 \u0026\u0026 !isNaN(result[0]) \u0026\u0026 result[0] \u003c= 0.5"
+                    }
+                ]
+            },
+            "status": {
+                "completedAt": "2026-10-17T13:34:19Z",
+                "dryRunSummary": {},
+                "metricResults": [
+                    {
+                        "consecutiveSuccess": 3,
+                        "count": 3,
+                        "measurements": [
+                            {
+                                "finishedAt": "2026-10-17T13:33:59Z",
+                                "phase": "Successful",
+                                "startedAt": "2026-10-17T13:33:59Z",
+                                "value": "[0.4708333333333331]"
+                            },
+                            {
+                                "finishedAt": "2026-10-17T13:34:09Z",
+                                "phase": "Successful",
+                                "startedAt": "2026-10-17T13:34:09Z",
+                                "value": "[0.47302631578947374]"
+                            },
+                            {
+                                "finishedAt": "2026-10-17T13:34:19Z",
+                                "phase": "Successful",
+                                "startedAt": "2026-10-17T13:34:19Z",
+                                "value": "[0.4578125]"
+                            }
+                        ],
+                        "metadata": {
+                            "ResolvedPrometheusQuery": "histogram_quantile(0.95, sum by (le) (rate(http_request_duration_seconds_bucket{service=\"gateway\",pod_template_hash=\"59d999db49\"}[1m])))"
+                        },
+                        "name": "candidate-p95",
+                        "phase": "Successful",
+                        "successful": 3
+                    },
+                    {
+                        "consecutiveSuccess": 3,
+                        "count": 3,
+                        "measurements": [
+                            {
+                                "finishedAt": "2026-10-17T13:33:59Z",
+                                "phase": "Successful",
+                                "startedAt": "2026-10-17T13:33:59Z",
+                                "value": "[0]"
+                            },
+                            {
+                                "finishedAt": "2026-10-17T13:34:09Z",
+                                "phase": "Successful",
+                                "startedAt": "2026-10-17T13:34:09Z",
+                                "value": "[0]"
+                            },
+                            {
+                                "finishedAt": "2026-10-17T13:34:19Z",
+                                "phase": "Successful",
+                                "startedAt": "2026-10-17T13:34:19Z",
+                                "value": "[0]"
+                            }
+                        ],
+                        "metadata": {
+                            "ResolvedPrometheusQuery": "(sum(rate(http_requests_total{service=\"gateway\",pod_template_hash=\"59d999db49\",status=~\"5..\"}[1m])) or vector(0)) / clamp_min(sum(rate(http_requests_total{service=\"gateway\",pod_template_hash=\"59d999db49\"}[1m])), 0.000001)"
+                        },
+                        "name": "candidate-error-rate",
+                        "phase": "Successful",
+                        "successful": 3
+                    },
+                    {
+                        "consecutiveSuccess": 3,
+                        "count": 3,
+                        "measurements": [
+                            {
+                                "finishedAt": "2026-10-17T13:33:59Z",
+                                "phase": "Successful",
+                                "startedAt": "2026-10-17T13:33:59Z",
+                                "value": "[218.4]"
+                            },
+                            {
+                                "finishedAt": "2026-10-17T13:34:09Z",
+                                "phase": "Successful",
+                                "startedAt": "2026-10-17T13:34:09Z",
+                                "value": "[217.2]"
+                            },
+                            {
+                                "finishedAt": "2026-10-17T13:34:19Z",
+                                "phase": "Successful",
+                                "startedAt": "2026-10-17T13:34:19Z",
+                                "value": "[217.2]"
+                            }
+                        ],
+                        "metadata": {
+                            "ResolvedPrometheusQuery": "sum(increase(http_requests_total{service=\"gateway\",pod_template_hash=\"59d999db49\"}[1m])) or vector(0)"
+                        },
+                        "name": "candidate-traffic",
+                        "phase": "Successful",
+                        "successful": 3
+                    }
+                ],
+                "phase": "Successful",
+                "runSummary": {
+                    "count": 3,
+                    "successful": 3
+                },
+                "startedAt": "2026-10-17T13:33:59Z"
+            }
+        },
+        {
+            "apiVersion": "argoproj.io/v1alpha1",
+            "kind": "AnalysisRun",
+            "metadata": {
+                "annotations": {
+                    "rollout.argoproj.io/revision": "4"
+                },
+                "creationTimestamp": "2026-10-17T13:34:01Z",
+                "generation": 4,
+                "labels": {
+                    "app.kubernetes.io/instance": "p9-platform",
+                    "app.kubernetes.io/name": "solicitudes",
+                    "rollout-type": "Step",
+                    "rollouts-pod-template-hash": "78f4d56dc8",
+                    "step-index": "2"
+                },
+                "name": "solicitudes-78f4d56dc8-4-2",
+                "namespace": "sa-p9",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "argoproj.io/v1alpha1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "Rollout",
+                        "name": "solicitudes",
+                        "uid": "b8a45829-ff13-4675-999f-f9b5a19b13af"
+                    }
+                ],
+                "resourceVersion": "1792244061074479012",
+                "uid": "3b97e75e-b4e4-4635-9b8a-fb4ebe9f25bb"
+            },
+            "spec": {
+                "args": [
+                    {
+                        "name": "service",
+                        "value": "solicitudes"
+                    },
+                    {
+                        "name": "hash",
+                        "value": "78f4d56dc8"
+                    }
+                ],
+                "metrics": [
+                    {
+                        "count": 3,
+                        "failureLimit": 1,
+                        "interval": "10s",
+                        "name": "candidate-traffic",
+                        "provider": {
+                            "prometheus": {
+                                "address": "http://p10-monitoring-prometheus.observabilidad.svc:9090",
+                                "authentication": {
+                                    "oauth2": {},
+                                    "sigv4": {}
+                                },
+                                "query": "sum(increase(http_requests_total{service=\"{{args.service}}\",pod_template_hash=\"{{args.hash}}\"}[1m])) or vector(0)"
+                            }
+                        },
+                        "successCondition": "len(result) == 1 \u0026\u0026 result[0] \u003e= 5"
+                    },
+                    {
+                        "count": 3,
+                        "failureLimit": 1,
+                        "interval": "10s",
+                        "name": "candidate-error-rate",
+                        "provider": {
+                            "prometheus": {
+                                "address": "http://p10-monitoring-prometheus.observabilidad.svc:9090",
+                                "authentication": {
+                                    "oauth2": {},
+                                    "sigv4": {}
+                                },
+                                "query": "(sum(rate(http_requests_total{service=\"{{args.service}}\",pod_template_hash=\"{{args.hash}}\",status=~\"5..\"}[1m])) or vector(0)) / clamp_min(sum(rate(http_requests_total{service=\"{{args.service}}\",pod_template_hash=\"{{args.hash}}\"}[1m])), 0.000001)"
+                            }
+                        },
+                        "successCondition": "len(result) == 1 \u0026\u0026 result[0] \u003c= 0.01"
+                    },
+                    {
+                        "count": 3,
+                        "failureLimit": 1,
+                        "interval": "10s",
+                        "name": "candidate-p95",
+                        "provider": {
+                            "prometheus": {
+                                "address": "http://p10-monitoring-prometheus.observabilidad.svc:9090",
+                                "authentication": {
+                                    "oauth2": {},
+                                    "sigv4": {}
+                                },
+                                "query": "histogram_quantile(0.95, sum by (le) (rate(http_request_duration_seconds_bucket{service=\"{{args.service}}\",pod_template_hash=\"{{args.hash}}\"}[1m])))"
+                            }
+                        },
+                        "successCondition": "len(result) == 1 \u0026\u0026 !isNaN(result[0]) \u0026\u0026 result[0] \u003c= 0.5"
+                    }
+                ]
+            },
+            "status": {
+                "completedAt": "2026-10-17T13:34:21Z",
+                "dryRunSummary": {},
+                "metricResults": [
+                    {
+                        "consecutiveSuccess": 3,
+                        "count": 3,
+                        "measurements": [
+                            {
+                                "finishedAt": "2026-10-17T13:34:01Z",
+                                "phase": "Successful",
+                                "startedAt": "2026-10-17T13:34:01Z",
+                                "value": "[0.04]"
+                            },
+                            {
+                                "finishedAt": "2026-10-17T13:34:11Z",
+                                "phase": "Successful",
+                                "startedAt": "2026-10-17T13:34:11Z",
+                                "value": "[0.04]"
+                            },
+                            {
+                                "finishedAt": "2026-10-17T13:34:21Z",
+                                "phase": "Successful",
+                                "startedAt": "2026-10-17T13:34:21Z",
+                                "value": "[0.02425]"
+                            }
+                        ],
+                        "metadata": {
+                            "ResolvedPrometheusQuery": "histogram_quantile(0.95, sum by (le) (rate(http_request_duration_seconds_bucket{service=\"solicitudes\",pod_template_hash=\"78f4d56dc8\"}[1m])))"
+                        },
+                        "name": "candidate-p95",
+                        "phase": "Successful",
+                        "successful": 3
+                    },
+                    {
+                        "consecutiveSuccess": 3,
+                        "count": 3,
+                        "measurements": [
+                            {
+                                "finishedAt": "2026-10-17T13:34:01Z",
+                                "phase": "Successful",
+                                "startedAt": "2026-10-17T13:34:01Z",
+                                "value": "[33.60000000000001]"
+                            },
+                            {
+                                "finishedAt": "2026-10-17T13:34:11Z",
+                                "phase": "Successful",
+                                "startedAt": "2026-10-17T13:34:11Z",
+                                "value": "[33.6]"
+                            },
+                            {
+                                "finishedAt": "2026-10-17T13:34:21Z",
+                                "phase": "Successful",
+                                "startedAt": "2026-10-17T13:34:21Z",
+                                "value": "[32.4]"
+                            }
+                        ],
+                        "metadata": {
+                            "ResolvedPrometheusQuery": "sum(increase(http_requests_total{service=\"solicitudes\",pod_template_hash=\"78f4d56dc8\"}[1m])) or vector(0)"
+                        },
+                        "name": "candidate-traffic",
+                        "phase": "Successful",
+                        "successful": 3
+                    },
+                    {
+                        "consecutiveSuccess": 3,
+                        "count": 3,
+                        "measurements": [
+                            {
+                                "finishedAt": "2026-10-17T13:34:01Z",
+                                "phase": "Successful",
+                                "startedAt": "2026-10-17T13:34:01Z",
+                                "value": "[0]"
+                            },
+                            {
+                                "finishedAt": "2026-10-17T13:34:11Z",
+                                "phase": "Successful",
+                                "startedAt": "2026-10-17T13:34:11Z",
+                                "value": "[0]"
+                            },
+                            {
+                                "finishedAt": "2026-10-17T13:34:21Z",
+                                "phase": "Successful",
+                                "startedAt": "2026-10-17T13:34:21Z",
+                                "value": "[0]"
+                            }
+                        ],
+                        "metadata": {
+                            "ResolvedPrometheusQuery": "(sum(rate(http_requests_total{service=\"solicitudes\",pod_template_hash=\"78f4d56dc8\",status=~\"5..\"}[1m])) or vector(0)) / clamp_min(sum(rate(http_requests_total{service=\"solicitudes\",pod_template_hash=\"78f4d56dc8\"}[1m])), 0.000001)"
+                        },
+                        "name": "candidate-error-rate",
+                        "phase": "Successful",
+                        "successful": 3
+                    }
+                ],
+                "phase": "Successful",
+                "runSummary": {
+                    "count": 3,
+                    "successful": 3
+                },
+                "startedAt": "2026-10-17T13:34:02Z"
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}

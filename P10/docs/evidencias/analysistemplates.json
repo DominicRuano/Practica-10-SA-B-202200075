@@ -1,0 +1,293 @@
+{
+  "apiVersion": "v1",
+  "items": [
+    {
+      "apiVersion": "argoproj.io/v1alpha1",
+      "kind": "AnalysisTemplate",
+      "metadata": {
+        "annotations": {
+          "argocd.argoproj.io/tracking-id": "p9-platform:argoproj.io/AnalysisTemplate:sa-p9/autenticacion-promotion"
+        },
+        "creationTimestamp": "2026-10-17T04:41:59Z",
+        "generation": 1,
+        "labels": {
+          "app.kubernetes.io/component": "backend",
+          "app.kubernetes.io/instance": "p9-platform",
+          "app.kubernetes.io/managed-by": "Helm",
+          "app.kubernetes.io/name": "autenticacion",
+          "app.kubernetes.io/part-of": "sa-platform",
+          "app.kubernetes.io/version": "1.1.0",
+          "helm.sh/chart": "autenticacion-0.9.0"
+        },
+        "name": "autenticacion-promotion",
+        "namespace": "sa-p9",
+        "resourceVersion": "1792212119446255006",
+        "uid": "60335182-6906-4dcf-9e8c-4eed6c2148ca"
+      },
+      "spec": {
+        "metrics": [
+          {
+            "count": 3,
+            "failureCondition": "result != \"ready\" && result != \"ok\"",
+            "failureLimit": 1,
+            "interval": "5s",
+            "name": "endpoint-critico",
+            "provider": {
+              "web": {
+                "jsonPath": "{$.status}",
+                "timeoutSeconds": 5,
+                "url": "http://autenticacion-canary.sa-p9.svc.cluster.local:3000/analysis"
+              }
+            },
+            "successCondition": "result == \"ready\" || result == \"ok\""
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "argoproj.io/v1alpha1",
+      "kind": "AnalysisTemplate",
+      "metadata": {
+        "annotations": {
+          "argocd.argoproj.io/tracking-id": "p9-platform:argoproj.io/AnalysisTemplate:sa-p9/catalogo-promotion"
+        },
+        "creationTimestamp": "2026-10-17T04:41:59Z",
+        "generation": 2,
+        "name": "catalogo-promotion",
+        "namespace": "sa-p9",
+        "resourceVersion": "1792217840575199017",
+        "uid": "2f579079-a5a0-4c2f-8f52-72756c778cb3"
+      },
+      "spec": {
+        "args": [
+          {
+            "name": "service"
+          },
+          {
+            "name": "hash"
+          }
+        ],
+        "metrics": [
+          {
+            "count": 3,
+            "failureLimit": 1,
+            "interval": "10s",
+            "name": "candidate-traffic",
+            "provider": {
+              "prometheus": {
+                "address": "http://p10-monitoring-prometheus.observabilidad.svc:9090",
+                "query": "sum(increase(http_requests_total{service=\"{{args.service}}\",pod_template_hash=\"{{args.hash}}\"}[1m])) or vector(0)"
+              }
+            },
+            "successCondition": "len(result) == 1 && result[0] >= 5"
+          },
+          {
+            "count": 3,
+            "failureLimit": 1,
+            "interval": "10s",
+            "name": "candidate-error-rate",
+            "provider": {
+              "prometheus": {
+                "address": "http://p10-monitoring-prometheus.observabilidad.svc:9090",
+                "query": "(sum(rate(http_requests_total{service=\"{{args.service}}\",pod_template_hash=\"{{args.hash}}\",status=~\"5..\"}[1m])) or vector(0)) / clamp_min(sum(rate(http_requests_total{service=\"{{args.service}}\",pod_template_hash=\"{{args.hash}}\"}[1m])), 0.000001)"
+              }
+            },
+            "successCondition": "len(result) == 1 && result[0] <= 0.01"
+          },
+          {
+            "count": 3,
+            "failureLimit": 1,
+            "interval": "10s",
+            "name": "candidate-p95",
+            "provider": {
+              "prometheus": {
+                "address": "http://p10-monitoring-prometheus.observabilidad.svc:9090",
+                "query": "histogram_quantile(0.95, sum by (le) (rate(http_request_duration_seconds_bucket{service=\"{{args.service}}\",pod_template_hash=\"{{args.hash}}\"}[1m])))"
+              }
+            },
+            "successCondition": "len(result) == 1 && !isNaN(result[0]) && result[0] <= 0.5"
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "argoproj.io/v1alpha1",
+      "kind": "AnalysisTemplate",
+      "metadata": {
+        "annotations": {
+          "argocd.argoproj.io/tracking-id": "p9-platform:argoproj.io/AnalysisTemplate:sa-p9/gateway-promotion"
+        },
+        "creationTimestamp": "2026-10-17T04:42:02Z",
+        "generation": 2,
+        "name": "gateway-promotion",
+        "namespace": "sa-p9",
+        "resourceVersion": "1792217842783103013",
+        "uid": "19cdf399-d44b-486b-b2a8-ff45f4983d57"
+      },
+      "spec": {
+        "args": [
+          {
+            "name": "service"
+          },
+          {
+            "name": "hash"
+          }
+        ],
+        "metrics": [
+          {
+            "count": 3,
+            "failureLimit": 1,
+            "interval": "10s",
+            "name": "candidate-traffic",
+            "provider": {
+              "prometheus": {
+                "address": "http://p10-monitoring-prometheus.observabilidad.svc:9090",
+                "query": "sum(increase(http_requests_total{service=\"{{args.service}}\",pod_template_hash=\"{{args.hash}}\"}[1m])) or vector(0)"
+              }
+            },
+            "successCondition": "len(result) == 1 && result[0] >= 5"
+          },
+          {
+            "count": 3,
+            "failureLimit": 1,
+            "interval": "10s",
+            "name": "candidate-error-rate",
+            "provider": {
+              "prometheus": {
+                "address": "http://p10-monitoring-prometheus.observabilidad.svc:9090",
+                "query": "(sum(rate(http_requests_total{service=\"{{args.service}}\",pod_template_hash=\"{{args.hash}}\",status=~\"5..\"}[1m])) or vector(0)) / clamp_min(sum(rate(http_requests_total{service=\"{{args.service}}\",pod_template_hash=\"{{args.hash}}\"}[1m])), 0.000001)"
+              }
+            },
+            "successCondition": "len(result) == 1 && result[0] <= 0.01"
+          },
+          {
+            "count": 3,
+            "failureLimit": 1,
+            "interval": "10s",
+            "name": "candidate-p95",
+            "provider": {
+              "prometheus": {
+                "address": "http://p10-monitoring-prometheus.observabilidad.svc:9090",
+                "query": "histogram_quantile(0.95, sum by (le) (rate(http_request_duration_seconds_bucket{service=\"{{args.service}}\",pod_template_hash=\"{{args.hash}}\"}[1m])))"
+              }
+            },
+            "successCondition": "len(result) == 1 && !isNaN(result[0]) && result[0] <= 0.5"
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "argoproj.io/v1alpha1",
+      "kind": "AnalysisTemplate",
+      "metadata": {
+        "annotations": {
+          "argocd.argoproj.io/tracking-id": "p9-platform:argoproj.io/AnalysisTemplate:sa-p9/reportes-promotion"
+        },
+        "creationTimestamp": "2026-10-17T04:42:05Z",
+        "generation": 1,
+        "labels": {
+          "app.kubernetes.io/component": "backend",
+          "app.kubernetes.io/instance": "p9-platform",
+          "app.kubernetes.io/managed-by": "Helm",
+          "app.kubernetes.io/name": "reportes",
+          "app.kubernetes.io/part-of": "sa-platform",
+          "app.kubernetes.io/version": "1.1.0",
+          "helm.sh/chart": "reportes-0.9.0"
+        },
+        "name": "reportes-promotion",
+        "namespace": "sa-p9",
+        "resourceVersion": "1792212125177519010",
+        "uid": "69b0a672-3121-44f6-9df2-f708c88e3899"
+      },
+      "spec": {
+        "metrics": [
+          {
+            "count": 3,
+            "failureCondition": "result != \"ready\" && result != \"ok\"",
+            "failureLimit": 1,
+            "interval": "5s",
+            "name": "endpoint-critico",
+            "provider": {
+              "web": {
+                "jsonPath": "{$.status}",
+                "timeoutSeconds": 5,
+                "url": "http://reportes-canary.sa-p9.svc.cluster.local:8001/ready"
+              }
+            },
+            "successCondition": "result == \"ready\" || result == \"ok\""
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "argoproj.io/v1alpha1",
+      "kind": "AnalysisTemplate",
+      "metadata": {
+        "annotations": {
+          "argocd.argoproj.io/tracking-id": "p9-platform:argoproj.io/AnalysisTemplate:sa-p9/solicitudes-promotion"
+        },
+        "creationTimestamp": "2026-10-17T04:42:14Z",
+        "generation": 2,
+        "name": "solicitudes-promotion",
+        "namespace": "sa-p9",
+        "resourceVersion": "1792217846435023023",
+        "uid": "33d4e3c0-c56a-4b2d-a92e-137723b4ab25"
+      },
+      "spec": {
+        "args": [
+          {
+            "name": "service"
+          },
+          {
+            "name": "hash"
+          }
+        ],
+        "metrics": [
+          {
+            "count": 3,
+            "failureLimit": 1,
+            "interval": "10s",
+            "name": "candidate-traffic",
+            "provider": {
+              "prometheus": {
+                "address": "http://p10-monitoring-prometheus.observabilidad.svc:9090",
+                "query": "sum(increase(http_requests_total{service=\"{{args.service}}\",pod_template_hash=\"{{args.hash}}\"}[1m])) or vector(0)"
+              }
+            },
+            "successCondition": "len(result) == 1 && result[0] >= 5"
+          },
+          {
+            "count": 3,
+            "failureLimit": 1,
+            "interval": "10s",
+            "name": "candidate-error-rate",
+            "provider": {
+              "prometheus": {
+                "address": "http://p10-monitoring-prometheus.observabilidad.svc:9090",
+                "query": "(sum(rate(http_requests_total{service=\"{{args.service}}\",pod_template_hash=\"{{args.hash}}\",status=~\"5..\"}[1m])) or vector(0)) / clamp_min(sum(rate(http_requests_total{service=\"{{args.service}}\",pod_template_hash=\"{{args.hash}}\"}[1m])), 0.000001)"
+              }
+            },
+            "successCondition": "len(result) == 1 && result[0] <= 0.01"
+          },
+          {
+            "count": 3,
+            "failureLimit": 1,
+            "interval": "10s",
+            "name": "candidate-p95",
+            "provider": {
+              "prometheus": {
+                "address": "http://p10-monitoring-prometheus.observabilidad.svc:9090",
+                "query": "histogram_quantile(0.95, sum by (le) (rate(http_request_duration_seconds_bucket{service=\"{{args.service}}\",pod_template_hash=\"{{args.hash}}\"}[1m])))"
+              }
+            },
+            "successCondition": "len(result) == 1 && !isNaN(result[0]) && result[0] <= 0.5"
+          }
+        ]
+      }
+    }
+  ],
+  "kind": "List",
+  "metadata": {
+    "resourceVersion": ""
+  }
+}

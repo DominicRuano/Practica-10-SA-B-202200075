@@ -1,0 +1,7 @@
+.runtime
+.private
+artifacts
+**/node_modules
+**/dist
+**/__pycache__
+**/.pytest_cache

@@ -1,0 +1,99 @@
+{{- range $name, $component := dict "collector" (dict "port" 4318 "healthPort" 13133 "path" "/" "memory" "256Mi" "cpu" "50m") "loki" (dict "port" 3100 "healthPort" 3100 "path" "/ready" "memory" "384Mi" "cpu" "50m") "tempo" (dict "port" 3200 "healthPort" 3200 "path" "/ready" "memory" "384Mi" "cpu" "50m") }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: p10-{{ $name }}
+  namespace: observabilidad
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels: {app: p10-{{ $name }}}
+  template:
+    metadata:
+      labels: {app: p10-{{ $name }}}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmaps.yaml") $ | sha256sum | quote }}
+    spec:
+      automountServiceAccountToken: false
+      securityContext: {runAsNonRoot: true, runAsUser: 10001, runAsGroup: 10001, fsGroup: 10001}
+      containers:
+        - name: {{ $name }}
+          image: {{ index $.Values.images $name | quote }}
+          args:
+            {{- if eq $name "collector" }}
+            - --config=/config/collector.yaml
+            {{- else if eq $name "loki" }}
+            - -config.file=/config/loki.yaml
+            {{- else }}
+            - -config.file=/config/tempo.yaml
+            {{- end }}
+          securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: [ALL]}}
+          ports:
+            - {name: http, containerPort: {{ $component.port }}}
+            {{- if or (eq $name "collector") (eq $name "tempo") }}
+            - {name: otlp-grpc, containerPort: 4317}
+            {{- if eq $name "tempo" }}
+            - {name: otlp-http, containerPort: 4318}
+            {{- else }}
+            - {name: health, containerPort: 13133}
+            {{- end }}
+            {{- end }}
+          readinessProbe:
+            httpGet: {path: {{ $component.path }}, port: {{ $component.healthPort }}}
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            httpGet: {path: {{ $component.path }}, port: {{ $component.healthPort }}}
+            initialDelaySeconds: 60
+            periodSeconds: 10
+          resources:
+            requests: {cpu: {{ $component.cpu }}, memory: 128Mi}
+            limits: {cpu: 500m, memory: {{ $component.memory }}}
+          volumeMounts:
+            - {name: config, mountPath: /config, readOnly: true}
+            - {name: tmp, mountPath: /tmp}
+            {{- if ne $name "collector" }}
+            - {name: data, mountPath: /var/{{ $name }}}
+            {{- end }}
+      volumes:
+        - name: config
+          configMap: {name: p10-{{ $name }}}
+        - name: tmp
+          emptyDir: {sizeLimit: 64Mi}
+        {{- if ne $name "collector" }}
+        - name: data
+          persistentVolumeClaim: {claimName: p10-{{ $name }}}
+        {{- end }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: p10-{{ $name }}
+  namespace: observabilidad
+spec:
+  selector: {app: p10-{{ $name }}}
+  ports:
+    - {name: http, port: {{ $component.port }}, targetPort: http}
+    {{- if or (eq $name "collector") (eq $name "tempo") }}
+    - {name: otlp-grpc, port: 4317, targetPort: otlp-grpc}
+    {{- if eq $name "tempo" }}
+    - {name: otlp-http, port: 4318, targetPort: otlp-http}
+    {{- end }}
+    {{- end }}
+{{- if ne $name "collector" }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: p10-{{ $name }}
+  namespace: observabilidad
+spec:
+  accessModes: [ReadWriteOnce]
+  storageClassName: {{ $.Values.storageClass }}
+  resources:
+    requests: {storage: 10Gi}
+{{- end }}
+{{- end }}

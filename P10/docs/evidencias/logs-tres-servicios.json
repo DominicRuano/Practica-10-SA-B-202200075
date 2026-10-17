@@ -1,0 +1,303 @@
+{
+  "status": "success",
+  "data": {
+    "resultType": "streams",
+    "result": [
+      {
+        "stream": {
+          "deployment_environment_name": "laboratorio",
+          "detected_level": "info",
+          "duration_seconds": "0.3384685700000264",
+          "event": "http_request",
+          "flags": "1",
+          "host_arch": "amd64",
+          "host_name": "gateway-57bb6f85d-rhr7g",
+          "level": "INFO",
+          "method": "POST",
+          "observed_timestamp": "1792245323562000000",
+          "process_command": "/app/dist/server.js",
+          "process_command_args": "[\"/usr/local/bin/node\",\"--require\",\"./node.cjs\",\"/app/dist/server.js\"]",
+          "process_executable_name": "node",
+          "process_executable_path": "/usr/local/bin/node",
+          "process_pid": "1",
+          "process_runtime_description": "Node.js",
+          "process_runtime_name": "nodejs",
+          "process_runtime_version": "22.23.3",
+          "route": "/api/v1/solicitudes",
+          "scope_name": "http",
+          "service": "gateway",
+          "service_name": "gateway",
+          "service_version": "1.10.1",
+          "severity_number": "9",
+          "span_id": "de520ee7ffcf4590",
+          "status": "201",
+          "timestamp": "2026-10-17T13:55:23.561Z",
+          "trace_id": "daa6a3f6657c8e805b98c1c82f310a23"
+        },
+        "values": [
+          [
+            "1792245323562000000",
+            "{\"timestamp\":\"2026-10-17T13:55:23.561Z\",\"service\":\"gateway\",\"level\":\"INFO\",\"event\":\"http_request\",\"trace_id\":\"daa6a3f6657c8e805b98c1c82f310a23\",\"span_id\":\"de520ee7ffcf4590\",\"method\":\"POST\",\"route\":\"/api/v1/solicitudes\",\"status\":201,\"duration_seconds\":0.3384685700000264}"
+          ]
+        ]
+      },
+      {
+        "stream": {
+          "deployment_environment_name": "laboratorio",
+          "detected_level": "info",
+          "duration_seconds": "0.3154751769999275",
+          "event": "http_request",
+          "flags": "1",
+          "host_arch": "amd64",
+          "host_name": "solicitudes-5db9b4b85d-gkgmk",
+          "level": "INFO",
+          "method": "POST",
+          "observed_timestamp": "1792245323556000000",
+          "process_command": "/app/dist/server.js",
+          "process_command_args": "[\"/usr/local/bin/node\",\"--require\",\"./node.cjs\",\"/app/dist/server.js\"]",
+          "process_executable_name": "node",
+          "process_executable_path": "/usr/local/bin/node",
+          "process_owner": "node",
+          "process_pid": "1",
+          "process_runtime_description": "Node.js",
+          "process_runtime_name": "nodejs",
+          "process_runtime_version": "22.23.3",
+          "route": "/api/v1/solicitudes",
+          "scope_name": "http",
+          "service": "solicitudes",
+          "service_name": "solicitudes",
+          "service_version": "1.10.1",
+          "severity_number": "9",
+          "span_id": "23843b936c816956",
+          "status": "201",
+          "timestamp": "2026-10-17T13:55:23.556Z",
+          "trace_id": "daa6a3f6657c8e805b98c1c82f310a23"
+        },
+        "values": [
+          [
+            "1792245323556000000",
+            "{\"timestamp\":\"2026-10-17T13:55:23.556Z\",\"service\":\"solicitudes\",\"level\":\"INFO\",\"event\":\"http_request\",\"trace_id\":\"daa6a3f6657c8e805b98c1c82f310a23\",\"span_id\":\"23843b936c816956\",\"method\":\"POST\",\"route\":\"/api/v1/solicitudes\",\"status\":201,\"duration_seconds\":0.3154751769999275}"
+          ]
+        ]
+      },
+      {
+        "stream": {
+          "code_file_path": "/app/app/telemetria.py",
+          "code_function_name": "observar",
+          "code_line_number": "66",
+          "detected_level": "INFO",
+          "duration_seconds": "0.13996994999615708",
+          "event": "http_request",
+          "flags": "1",
+          "level": "INFO",
+          "method": "POST",
+          "observed_timestamp": "1792245323511767562",
+          "route": "/api/v1/catalogo/graphql",
+          "scope_name": "p10.http",
+          "service": "catalogo",
+          "service_instance_id": "8585b2a4-5808-4a21-af6d-34822a2d3724",
+          "service_name": "catalogo",
+          "service_version": "1.10.1",
+          "severity_number": "9",
+          "severity_text": "INFO",
+          "span_id": "f7e91735203100b8",
+          "status": "200",
+          "telemetry_sdk_language": "python",
+          "telemetry_sdk_name": "opentelemetry",
+          "telemetry_sdk_version": "1.45.1",
+          "trace_id": "daa6a3f6657c8e805b98c1c82f310a23"
+        },
+        "values": [
+          [
+            "1792245323510748416",
+            "{\"service\": \"catalogo\", \"level\": \"INFO\", \"event\": \"http_request\", \"trace_id\": \"daa6a3f6657c8e805b98c1c82f310a23\", \"span_id\": \"f7e91735203100b8\", \"route\": \"/api/v1/catalogo/graphql\", \"method\": \"POST\", \"status\": 200, \"duration_seconds\": 0.13996994999615708}"
+          ]
+        ]
+      }
+    ],
+    "stats": {
+      "summary": {
+        "bytesProcessedPerSecond": 14581859,
+        "linesProcessedPerSecond": 26795,
+        "totalBytesProcessed": 3149211,
+        "totalLinesProcessed": 5787,
+        "execTime": 0.215968,
+        "queueTime": 0.003691,
+        "subqueries": 0,
+        "totalEntriesReturned": 3,
+        "splits": 2,
+        "shards": 2,
+        "totalPostFilterLines": 3,
+        "totalStructuredMetadataBytesProcessed": 1563066
+      },
+      "querier": {
+        "store": {
+          "totalChunksRef": 0,
+          "totalChunksDownloaded": 0,
+          "chunksDownloadTime": 0,
+          "queryReferencedStructuredMetadata": false,
+          "queryUsedV2Engine": false,
+          "chunk": {
+            "headChunkBytes": 0,
+            "headChunkLines": 0,
+            "decompressedBytes": 0,
+            "decompressedLines": 0,
+            "compressedBytes": 0,
+            "totalDuplicates": 0,
+            "postFilterLines": 0,
+            "headChunkStructuredMetadataBytes": 0,
+            "decompressedStructuredMetadataBytes": 0
+          },
+          "chunkRefsFetchTime": 0,
+          "congestionControlLatency": 0,
+          "pipelineWrapperFilteredLines": 0,
+          "dataobj": {
+            "prePredicateDecompressedRows": 0,
+            "prePredicateDecompressedBytes": 0,
+            "prePredicateDecompressedStructuredMetadataBytes": 0,
+            "postPredicateRows": 0,
+            "postPredicateDecompressedBytes": 0,
+            "postPredicateStructuredMetadataBytes": 0,
+            "postFilterRows": 0,
+            "pagesScanned": 0,
+            "pagesDownloaded": 0,
+            "pagesDownloadedBytes": 0,
+            "pageBatches": 0,
+            "totalRowsAvailable": 0,
+            "totalPageDownloadTime": 0
+          }
+        }
+      },
+      "ingester": {
+        "totalReached": 2,
+        "totalChunksMatched": 10,
+        "totalBatches": 3,
+        "totalLinesSent": 3,
+        "store": {
+          "totalChunksRef": 0,
+          "totalChunksDownloaded": 0,
+          "chunksDownloadTime": 0,
+          "queryReferencedStructuredMetadata": false,
+          "queryUsedV2Engine": false,
+          "chunk": {
+            "headChunkBytes": 1042042,
+            "headChunkLines": 2608,
+            "decompressedBytes": 2107169,
+            "decompressedLines": 3179,
+            "compressedBytes": 204423,
+            "totalDuplicates": 0,
+            "postFilterLines": 3,
+            "headChunkStructuredMetadataBytes": 364096,
+            "decompressedStructuredMetadataBytes": 1198970
+          },
+          "chunkRefsFetchTime": 1038725,
+          "congestionControlLatency": 0,
+          "pipelineWrapperFilteredLines": 0,
+          "dataobj": {
+            "prePredicateDecompressedRows": 0,
+            "prePredicateDecompressedBytes": 0,
+            "prePredicateDecompressedStructuredMetadataBytes": 0,
+            "postPredicateRows": 0,
+            "postPredicateDecompressedBytes": 0,
+            "postPredicateStructuredMetadataBytes": 0,
+            "postFilterRows": 0,
+            "pagesScanned": 0,
+            "pagesDownloaded": 0,
+            "pagesDownloadedBytes": 0,
+            "pageBatches": 0,
+            "totalRowsAvailable": 0,
+            "totalPageDownloadTime": 0
+          }
+        }
+      },
+      "cache": {
+        "chunk": {
+          "entriesFound": 0,
+          "entriesRequested": 0,
+          "entriesStored": 0,
+          "bytesReceived": 0,
+          "bytesSent": 0,
+          "requests": 0,
+          "downloadTime": 0,
+          "queryLengthServed": 0
+        },
+        "index": {
+          "entriesFound": 0,
+          "entriesRequested": 0,
+          "entriesStored": 0,
+          "bytesReceived": 0,
+          "bytesSent": 0,
+          "requests": 0,
+          "downloadTime": 0,
+          "queryLengthServed": 0
+        },
+        "result": {
+          "entriesFound": 0,
+          "entriesRequested": 0,
+          "entriesStored": 0,
+          "bytesReceived": 0,
+          "bytesSent": 0,
+          "requests": 0,
+          "downloadTime": 0,
+          "queryLengthServed": 0
+        },
+        "statsResult": {
+          "entriesFound": 1,
+          "entriesRequested": 1,
+          "entriesStored": 0,
+          "bytesReceived": 241,
+          "bytesSent": 0,
+          "requests": 1,
+          "downloadTime": 186194,
+          "queryLengthServed": 299000000000
+        },
+        "volumeResult": {
+          "entriesFound": 0,
+          "entriesRequested": 0,
+          "entriesStored": 0,
+          "bytesReceived": 0,
+          "bytesSent": 0,
+          "requests": 0,
+          "downloadTime": 0,
+          "queryLengthServed": 0
+        },
+        "seriesResult": {
+          "entriesFound": 0,
+          "entriesRequested": 0,
+          "entriesStored": 0,
+          "bytesReceived": 0,
+          "bytesSent": 0,
+          "requests": 0,
+          "downloadTime": 0,
+          "queryLengthServed": 0
+        },
+        "labelResult": {
+          "entriesFound": 0,
+          "entriesRequested": 0,
+          "entriesStored": 0,
+          "bytesReceived": 0,
+          "bytesSent": 0,
+          "requests": 0,
+          "downloadTime": 0,
+          "queryLengthServed": 0
+        },
+        "instantMetricResult": {
+          "entriesFound": 0,
+          "entriesRequested": 0,
+          "entriesStored": 0,
+          "bytesReceived": 0,
+          "bytesSent": 0,
+          "requests": 0,
+          "downloadTime": 0,
+          "queryLengthServed": 0
+        }
+      },
+      "index": {
+        "totalChunks": 0,
+        "postFilterChunks": 0,
+        "shardsDuration": 0,
+        "usedBloomFilters": false
+      }
+    }
+  }
+}

@@ -1,0 +1,224 @@
+{
+  "status": "success",
+  "data": {
+    "resultType": "streams",
+    "result": [
+      {
+        "stream": {
+          "cause": "latencia_inducida_dependencia_catalogo",
+          "code_file_path": "/app/app/telemetria.py",
+          "code_function_name": "observar",
+          "code_line_number": "54",
+          "delay_ms": "2500",
+          "detected_level": "ERROR",
+          "event": "catalogo_dependency_latency",
+          "flags": "1",
+          "level": "ERROR",
+          "observed_timestamp": "1792244230063286956",
+          "scope_name": "p10.http",
+          "service": "catalogo",
+          "service_instance_id": "cddf9daa-f516-4d3b-8b83-f2e20278becb",
+          "service_name": "catalogo",
+          "service_version": "1.10.1",
+          "severity_number": "17",
+          "severity_text": "ERROR",
+          "span_id": "3b59a20f92ef7e35",
+          "telemetry_sdk_language": "python",
+          "telemetry_sdk_name": "opentelemetry",
+          "telemetry_sdk_version": "1.45.1",
+          "trace_id": "5280d95c9c5c55c5025a8f9935cba757"
+        },
+        "values": [
+          [
+            "1792244230063059456",
+            "{\"service\": \"catalogo\", \"level\": \"ERROR\", \"event\": \"catalogo_dependency_latency\", \"trace_id\": \"5280d95c9c5c55c5025a8f9935cba757\", \"span_id\": \"3b59a20f92ef7e35\", \"delay_ms\": 2500, \"cause\": \"latencia_inducida_dependencia_catalogo\"}"
+          ]
+        ]
+      }
+    ],
+    "stats": {
+      "summary": {
+        "bytesProcessedPerSecond": 6725086,
+        "linesProcessedPerSecond": 18124,
+        "totalBytesProcessed": 120962,
+        "totalLinesProcessed": 326,
+        "execTime": 0.017987,
+        "queueTime": 0.000239,
+        "subqueries": 0,
+        "totalEntriesReturned": 1,
+        "splits": 0,
+        "shards": 1,
+        "totalPostFilterLines": 1,
+        "totalStructuredMetadataBytesProcessed": 39120
+      },
+      "querier": {
+        "store": {
+          "totalChunksRef": 0,
+          "totalChunksDownloaded": 0,
+          "chunksDownloadTime": 0,
+          "queryReferencedStructuredMetadata": false,
+          "queryUsedV2Engine": false,
+          "chunk": {
+            "headChunkBytes": 0,
+            "headChunkLines": 0,
+            "decompressedBytes": 0,
+            "decompressedLines": 0,
+            "compressedBytes": 0,
+            "totalDuplicates": 0,
+            "postFilterLines": 0,
+            "headChunkStructuredMetadataBytes": 0,
+            "decompressedStructuredMetadataBytes": 0
+          },
+          "chunkRefsFetchTime": 0,
+          "congestionControlLatency": 0,
+          "pipelineWrapperFilteredLines": 0,
+          "dataobj": {
+            "prePredicateDecompressedRows": 0,
+            "prePredicateDecompressedBytes": 0,
+            "prePredicateDecompressedStructuredMetadataBytes": 0,
+            "postPredicateRows": 0,
+            "postPredicateDecompressedBytes": 0,
+            "postPredicateStructuredMetadataBytes": 0,
+            "postFilterRows": 0,
+            "pagesScanned": 0,
+            "pagesDownloaded": 0,
+            "pagesDownloadedBytes": 0,
+            "pageBatches": 0,
+            "totalRowsAvailable": 0,
+            "totalPageDownloadTime": 0
+          }
+        }
+      },
+      "ingester": {
+        "totalReached": 1,
+        "totalChunksMatched": 3,
+        "totalBatches": 2,
+        "totalLinesSent": 1,
+        "store": {
+          "totalChunksRef": 0,
+          "totalChunksDownloaded": 0,
+          "chunksDownloadTime": 0,
+          "queryReferencedStructuredMetadata": false,
+          "queryUsedV2Engine": false,
+          "chunk": {
+            "headChunkBytes": 120962,
+            "headChunkLines": 326,
+            "decompressedBytes": 0,
+            "decompressedLines": 0,
+            "compressedBytes": 0,
+            "totalDuplicates": 0,
+            "postFilterLines": 1,
+            "headChunkStructuredMetadataBytes": 39120,
+            "decompressedStructuredMetadataBytes": 0
+          },
+          "chunkRefsFetchTime": 425820,
+          "congestionControlLatency": 0,
+          "pipelineWrapperFilteredLines": 0,
+          "dataobj": {
+            "prePredicateDecompressedRows": 0,
+            "prePredicateDecompressedBytes": 0,
+            "prePredicateDecompressedStructuredMetadataBytes": 0,
+            "postPredicateRows": 0,
+            "postPredicateDecompressedBytes": 0,
+            "postPredicateStructuredMetadataBytes": 0,
+            "postFilterRows": 0,
+            "pagesScanned": 0,
+            "pagesDownloaded": 0,
+            "pagesDownloadedBytes": 0,
+            "pageBatches": 0,
+            "totalRowsAvailable": 0,
+            "totalPageDownloadTime": 0
+          }
+        }
+      },
+      "cache": {
+        "chunk": {
+          "entriesFound": 0,
+          "entriesRequested": 0,
+          "entriesStored": 0,
+          "bytesReceived": 0,
+          "bytesSent": 0,
+          "requests": 0,
+          "downloadTime": 0,
+          "queryLengthServed": 0
+        },
+        "index": {
+          "entriesFound": 0,
+          "entriesRequested": 0,
+          "entriesStored": 0,
+          "bytesReceived": 0,
+          "bytesSent": 0,
+          "requests": 0,
+          "downloadTime": 0,
+          "queryLengthServed": 0
+        },
+        "result": {
+          "entriesFound": 0,
+          "entriesRequested": 0,
+          "entriesStored": 0,
+          "bytesReceived": 0,
+          "bytesSent": 0,
+          "requests": 0,
+          "downloadTime": 0,
+          "queryLengthServed": 0
+        },
+        "statsResult": {
+          "entriesFound": 0,
+          "entriesRequested": 0,
+          "entriesStored": 0,
+          "bytesReceived": 0,
+          "bytesSent": 0,
+          "requests": 0,
+          "downloadTime": 0,
+          "queryLengthServed": 0
+        },
+        "volumeResult": {
+          "entriesFound": 0,
+          "entriesRequested": 0,
+          "entriesStored": 0,
+          "bytesReceived": 0,
+          "bytesSent": 0,
+          "requests": 0,
+          "downloadTime": 0,
+          "queryLengthServed": 0
+        },
+        "seriesResult": {
+          "entriesFound": 0,
+          "entriesRequested": 0,
+          "entriesStored": 0,
+          "bytesReceived": 0,
+          "bytesSent": 0,
+          "requests": 0,
+          "downloadTime": 0,
+          "queryLengthServed": 0
+        },
+        "labelResult": {
+          "entriesFound": 0,
+          "entriesRequested": 0,
+          "entriesStored": 0,
+          "bytesReceived": 0,
+          "bytesSent": 0,
+          "requests": 0,
+          "downloadTime": 0,
+          "queryLengthServed": 0
+        },
+        "instantMetricResult": {
+          "entriesFound": 0,
+          "entriesRequested": 0,
+          "entriesStored": 0,
+          "bytesReceived": 0,
+          "bytesSent": 0,
+          "requests": 0,
+          "downloadTime": 0,
+          "queryLengthServed": 0
+        }
+      },
+      "index": {
+        "totalChunks": 0,
+        "postFilterChunks": 0,
+        "shardsDuration": 0,
+        "usedBloomFilters": false
+      }
+    }
+  }
+}

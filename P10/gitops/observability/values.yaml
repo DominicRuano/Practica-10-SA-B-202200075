@@ -1,0 +1,7 @@
+namespace: observabilidad
+applicationNamespace: sa-p9
+images:
+  collector: otel/opentelemetry-collector-contrib:0.140.0
+  loki: grafana/loki:3.6.0
+  tempo: grafana/tempo:2.9.0
+storageClass: standard-rwo

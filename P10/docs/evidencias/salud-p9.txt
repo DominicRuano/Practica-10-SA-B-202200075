@@ -1,0 +1,5 @@
+clustersecretstore.external-secrets.io/p9-gcp-secret-manager condition met
+externalsecret.external-secrets.io/sa-platform-secrets condition met
+externalsecret.external-secrets.io/velero-repo-credentials condition met
+Ultimo respaldo recuperable: 681 segundos de antiguedad.
+Estado operativo y antiguedad de respaldos: correctos.

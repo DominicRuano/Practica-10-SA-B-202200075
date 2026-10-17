@@ -1,0 +1,27 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: p10-verify-images
+spec:
+  background: false
+  webhookTimeoutSeconds: 30
+  rules:
+    - name: verify-p10-signatures
+      match:
+        any:
+          - resources:
+              kinds: [Pod]
+              namespaces: [sa-p9]
+      verifyImages:
+        - imageReferences: ['ghcr.io/dominicruano/sa-p8/gateway:1.10.*', 'ghcr.io/dominicruano/sa-p8/solicitudes:1.10.*', 'ghcr.io/dominicruano/sa-p8/catalogo:1.10.*']
+          required: true
+          verifyDigest: true
+          mutateDigest: true
+          failureAction: Enforce
+          attestors:
+            - entries:
+                - keyless:
+                    subject: https://github.com/DominicRuano/Practicas-SA-B-202200075/.github/workflows/p10-observability.yml@refs/heads/main
+                    issuer: https://token.actions.githubusercontent.com
+                    rekor:
+                      url: https://rekor.sigstore.dev

@@ -1,0 +1,12 @@
+[
+  {
+    "pod": "catalogo-b598b97bb-h8vxz",
+    "created_at": "2026-10-17T13:35:46Z",
+    "images": [
+      {
+        "image": "sha256:949f9aff9fcf8666a1a0e4cf1699fb32af02c72014e9ffe033e86aad17bdf393",
+        "imageID": "ghcr.io/dominicruano/sa-p8/catalogo@sha256:da138ecb2582d53079d76e14a5ab6e7792285ea7e31f2038b8e4d3052360ccba"
+      }
+    ]
+  }
+]

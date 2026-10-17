@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: p10-dashboard
+  namespace: observabilidad
+  labels:
+    grafana_dashboard: '1'
+data:
+  p10-operacion.json: |
+{{ .Files.Get "files/operacion.json" | indent 4 }}

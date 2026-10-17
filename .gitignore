@@ -1,0 +1,8 @@
+node_modules/
+dist/
+__pycache__/
+*.pyc
+.env
+P10/.runtime/
+P10/.private/
+P10/artifacts/

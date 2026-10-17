@@ -1,0 +1,6 @@
+apiVersion: v2
+name: p10-observability
+description: Recoleccion de trazas y registros y reglas de operacion de P10
+version: 1.0.0
+appVersion: '1.10.0'
+type: application

@@ -1,0 +1,15 @@
+{
+  "measurement_started_at": "2026-10-17T13:35:11.882327+00:00",
+  "first_fault_log_at": "2026-10-17T13:36:06.207593+00:00",
+  "alert_observed_at": "2026-10-17T13:37:37.273337+00:00",
+  "alert_active_at": "2026-10-17T13:37:18.993433941Z",
+  "detection_from_first_fault_log_seconds": 91.066,
+  "alert_poll_interval_seconds": 3,
+  "cause_found_at": "2026-10-17T13:37:42.272312+00:00",
+  "trace_id": "5280d95c9c5c55c5025a8f9935cba757",
+  "trace_duration_ms": 2629,
+  "route_seconds": 1.644,
+  "target_seconds": 180,
+  "target_met": true,
+  "cause": "latencia_inducida_dependencia_catalogo"
+}

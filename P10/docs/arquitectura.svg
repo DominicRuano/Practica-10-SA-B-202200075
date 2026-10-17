@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1220" height="640" viewBox="0 0 1220 640">
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#475569"/></marker></defs>
+<rect width="1220" height="640" fill="#f8fafc"/>
+<text x="40" y="30" font-family="sans-serif" font-size="21" fill="#0f172a">Práctica 10 · Flujo de operación y telemetría</text>
+<line x1="200" y1="147" x2="250" y2="77" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="330" y1="105" x2="330" y2="150" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="330" y1="205" x2="330" y2="250" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="410" y1="77" x2="500" y2="160" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="410" y1="177" x2="500" y2="177" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="410" y1="277" x2="500" y2="195" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="700" y1="165" x2="780" y2="77" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="700" y1="185" x2="780" y2="177" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="580" y1="340" x2="370" y2="305" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="540" y1="340" x2="370" y2="205" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="500" y1="340" x2="410" y2="90" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="700" y1="367" x2="780" y2="367" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="940" y1="77" x2="1010" y2="160" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="940" y1="177" x2="1010" y2="177" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="700" y1="367" x2="1010" y2="195" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="430" y1="465" x2="550" y2="395" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="330" y1="440" x2="330" y2="305" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="40" y="120" width="160" height="55" rx="9" fill="#e0f2fe" stroke="#0369a1"/>
+<text x="120.0" y="153.5" text-anchor="middle" font-family="sans-serif" font-size="17" fill="#0f172a">Usuario / CLI</text>
+<rect x="250" y="50" width="160" height="55" rx="9" fill="#e0f2fe" stroke="#0369a1"/>
+<text x="330.0" y="83.5" text-anchor="middle" font-family="sans-serif" font-size="17" fill="#0f172a">Gateway</text>
+<rect x="250" y="150" width="160" height="55" rx="9" fill="#e0f2fe" stroke="#0369a1"/>
+<text x="330.0" y="183.5" text-anchor="middle" font-family="sans-serif" font-size="17" fill="#0f172a">Solicitudes</text>
+<rect x="250" y="250" width="160" height="55" rx="9" fill="#e0f2fe" stroke="#0369a1"/>
+<text x="330.0" y="283.5" text-anchor="middle" font-family="sans-serif" font-size="17" fill="#0f172a">Catálogo</text>
+<rect x="500" y="150" width="200" height="55" rx="9" fill="#e0f2fe" stroke="#0369a1"/>
+<text x="600.0" y="183.5" text-anchor="middle" font-family="sans-serif" font-size="17" fill="#0f172a">OTel Collector</text>
+<rect x="780" y="50" width="160" height="55" rx="9" fill="#e0f2fe" stroke="#0369a1"/>
+<text x="860.0" y="83.5" text-anchor="middle" font-family="sans-serif" font-size="17" fill="#0f172a">Tempo</text>
+<rect x="780" y="150" width="160" height="55" rx="9" fill="#e0f2fe" stroke="#0369a1"/>
+<text x="860.0" y="183.5" text-anchor="middle" font-family="sans-serif" font-size="17" fill="#0f172a">Loki</text>
+<rect x="500" y="340" width="200" height="55" rx="9" fill="#e0f2fe" stroke="#0369a1"/>
+<text x="600.0" y="373.5" text-anchor="middle" font-family="sans-serif" font-size="17" fill="#0f172a">Prometheus</text>
+<rect x="780" y="340" width="160" height="55" rx="9" fill="#e0f2fe" stroke="#0369a1"/>
+<text x="860.0" y="373.5" text-anchor="middle" font-family="sans-serif" font-size="17" fill="#0f172a">Alertmanager</text>
+<rect x="1010" y="150" width="160" height="55" rx="9" fill="#e0f2fe" stroke="#0369a1"/>
+<text x="1090.0" y="183.5" text-anchor="middle" font-family="sans-serif" font-size="17" fill="#0f172a">Grafana</text>
+<rect x="250" y="440" width="180" height="55" rx="9" fill="#e0f2fe" stroke="#0369a1"/>
+<text x="340.0" y="473.5" text-anchor="middle" font-family="sans-serif" font-size="17" fill="#0f172a">Argo Rollouts</text>
+<rect x="40" y="540" width="1130" height="50" rx="9" fill="#e0f2fe" stroke="#0369a1"/>
+<text x="605.0" y="571.0" text-anchor="middle" font-family="sans-serif" font-size="17" fill="#0f172a">Argo CD · GitOps · namespace sa-p9 + observabilidad</text>
+<text x="475" y="120" font-family="sans-serif" font-size="14">OTLP: trazas + logs</text>
+<text x="455" y="420" font-family="sans-serif" font-size="14">/metrics · SLI · presupuesto · análisis por hash</text>
+</svg>

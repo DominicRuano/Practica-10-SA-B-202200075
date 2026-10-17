@@ -1,0 +1,182 @@
+{
+    "apiVersion": "argoproj.io/v1alpha1",
+    "kind": "AnalysisRun",
+    "metadata": {
+        "annotations": {
+            "rollout.argoproj.io/revision": "5"
+        },
+        "creationTimestamp": "2026-10-17T13:40:10Z",
+        "generation": 4,
+        "labels": {
+            "app.kubernetes.io/instance": "p9-platform",
+            "app.kubernetes.io/name": "catalogo",
+            "rollout-type": "Step",
+            "rollouts-pod-template-hash": "b598b97bb",
+            "step-index": "2"
+        },
+        "name": "catalogo-b598b97bb-5-2",
+        "namespace": "sa-p9",
+        "ownerReferences": [
+            {
+                "apiVersion": "argoproj.io/v1alpha1",
+                "blockOwnerDeletion": true,
+                "controller": true,
+                "kind": "Rollout",
+                "name": "catalogo",
+                "uid": "cdd028f1-1832-4b16-801d-d137dc97fd97"
+            }
+        ],
+        "resourceVersion": "1792244420108751019",
+        "uid": "8f15f502-df74-428c-acbc-8abd21708ad0"
+    },
+    "spec": {
+        "args": [
+            {
+                "name": "service",
+                "value": "catalogo"
+            },
+            {
+                "name": "hash",
+                "value": "b598b97bb"
+            }
+        ],
+        "metrics": [
+            {
+                "count": 3,
+                "failureLimit": 1,
+                "interval": "10s",
+                "name": "candidate-traffic",
+                "provider": {
+                    "prometheus": {
+                        "address": "http://p10-monitoring-prometheus.observabilidad.svc:9090",
+                        "authentication": {
+                            "oauth2": {},
+                            "sigv4": {}
+                        },
+                        "query": "sum(increase(http_requests_total{service=\"{{args.service}}\",pod_template_hash=\"{{args.hash}}\"}[1m])) or vector(0)"
+                    }
+                },
+                "successCondition": "len(result) == 1 \u0026\u0026 result[0] \u003e= 5"
+            },
+            {
+                "count": 3,
+                "failureLimit": 1,
+                "interval": "10s",
+                "name": "candidate-error-rate",
+                "provider": {
+                    "prometheus": {
+                        "address": "http://p10-monitoring-prometheus.observabilidad.svc:9090",
+                        "authentication": {
+                            "oauth2": {},
+                            "sigv4": {}
+                        },
+                        "query": "(sum(rate(http_requests_total{service=\"{{args.service}}\",pod_template_hash=\"{{args.hash}}\",status=~\"5..\"}[1m])) or vector(0)) / clamp_min(sum(rate(http_requests_total{service=\"{{args.service}}\",pod_template_hash=\"{{args.hash}}\"}[1m])), 0.000001)"
+                    }
+                },
+                "successCondition": "len(result) == 1 \u0026\u0026 result[0] \u003c= 0.01"
+            },
+            {
+                "count": 3,
+                "failureLimit": 1,
+                "interval": "10s",
+                "name": "candidate-p95",
+                "provider": {
+                    "prometheus": {
+                        "address": "http://p10-monitoring-prometheus.observabilidad.svc:9090",
+                        "authentication": {
+                            "oauth2": {},
+                            "sigv4": {}
+                        },
+                        "query": "histogram_quantile(0.95, sum by (le) (rate(http_request_duration_seconds_bucket{service=\"{{args.service}}\",pod_template_hash=\"{{args.hash}}\"}[1m])))"
+                    }
+                },
+                "successCondition": "len(result) == 1 \u0026\u0026 !isNaN(result[0]) \u0026\u0026 result[0] \u003c= 0.5"
+            }
+        ]
+    },
+    "status": {
+        "completedAt": "2026-10-17T13:40:20Z",
+        "dryRunSummary": {},
+        "message": "Metric \"candidate-p95\" assessed Failed due to failed (2) \u003e failureLimit (1)",
+        "metricResults": [
+            {
+                "count": 2,
+                "failed": 2,
+                "measurements": [
+                    {
+                        "finishedAt": "2026-10-17T13:40:10Z",
+                        "phase": "Failed",
+                        "startedAt": "2026-10-17T13:40:10Z",
+                        "value": "[2.9952380952380953]"
+                    },
+                    {
+                        "finishedAt": "2026-10-17T13:40:20Z",
+                        "phase": "Failed",
+                        "startedAt": "2026-10-17T13:40:20Z",
+                        "value": "[3.8999999999999986]"
+                    }
+                ],
+                "metadata": {
+                    "ResolvedPrometheusQuery": "histogram_quantile(0.95, sum by (le) (rate(http_request_duration_seconds_bucket{service=\"catalogo\",pod_template_hash=\"b598b97bb\"}[1m])))"
+                },
+                "name": "candidate-p95",
+                "phase": "Failed"
+            },
+            {
+                "consecutiveSuccess": 2,
+                "count": 2,
+                "measurements": [
+                    {
+                        "finishedAt": "2026-10-17T13:40:10Z",
+                        "phase": "Successful",
+                        "startedAt": "2026-10-17T13:40:10Z",
+                        "value": "[0]"
+                    },
+                    {
+                        "finishedAt": "2026-10-17T13:40:20Z",
+                        "phase": "Successful",
+                        "startedAt": "2026-10-17T13:40:20Z",
+                        "value": "[0]"
+                    }
+                ],
+                "metadata": {
+                    "ResolvedPrometheusQuery": "(sum(rate(http_requests_total{service=\"catalogo\",pod_template_hash=\"b598b97bb\",status=~\"5..\"}[1m])) or vector(0)) / clamp_min(sum(rate(http_requests_total{service=\"catalogo\",pod_template_hash=\"b598b97bb\"}[1m])), 0.000001)"
+                },
+                "name": "candidate-error-rate",
+                "phase": "Successful",
+                "successful": 2
+            },
+            {
+                "consecutiveSuccess": 2,
+                "count": 2,
+                "measurements": [
+                    {
+                        "finishedAt": "2026-10-17T13:40:10Z",
+                        "phase": "Successful",
+                        "startedAt": "2026-10-17T13:40:10Z",
+                        "value": "[26.4]"
+                    },
+                    {
+                        "finishedAt": "2026-10-17T13:40:20Z",
+                        "phase": "Successful",
+                        "startedAt": "2026-10-17T13:40:20Z",
+                        "value": "[26.4]"
+                    }
+                ],
+                "metadata": {
+                    "ResolvedPrometheusQuery": "sum(increase(http_requests_total{service=\"catalogo\",pod_template_hash=\"b598b97bb\"}[1m])) or vector(0)"
+                },
+                "name": "candidate-traffic",
+                "phase": "Successful",
+                "successful": 2
+            }
+        ],
+        "phase": "Failed",
+        "runSummary": {
+            "count": 3,
+            "failed": 1,
+            "successful": 2
+        },
+        "startedAt": "2026-10-17T13:40:10Z"
+    }
+}

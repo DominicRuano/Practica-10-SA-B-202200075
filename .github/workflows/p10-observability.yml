@@ -1,0 +1,88 @@
+name: P10 Observabilidad
+on:
+  push:
+    branches: [main]
+    paths: ['P10/**', '.github/workflows/p10-observability.yml']
+  pull_request:
+    paths: ['P10/**', '.github/workflows/p10-observability.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+      - uses: azure/setup-helm@v5.0.0
+        with:
+          version: v3.21.4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.13.3
+      - run: python3 -m pip install PyYAML==6.0.3
+      - run: bash P10/scripts/verify.sh
+      - name: Probar gateway
+        run: |
+          npm ci --prefix P10/services/gateway
+          cp P10/telemetry/http.ts P10/services/gateway/http.ts
+          P10/services/gateway/node_modules/.bin/tsc -p P10/services/gateway/tsconfig.json
+          npm test --prefix P10/services/gateway
+      - name: Probar solicitudes
+        run: |
+          npm ci --prefix P10/services/solicitudes
+          cp P10/telemetry/http.ts P10/services/solicitudes/src/telemetry.ts
+          npm run verify --prefix P10/services/solicitudes
+      - name: Probar catalogo
+        run: |
+          python3 -m venv /tmp/p10-python
+          /tmp/p10-python/bin/pip install -r P10/services/catalogo/requirements-dev.txt
+          cd P10/services/catalogo
+          /tmp/p10-python/bin/python -m pytest -q
+  publish:
+    if: github.event_name == 'workflow_dispatch' && github.repository == 'DominicRuano/Practicas-SA-B-202200075'
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v6
+      - uses: sigstore/cosign-installer@v4.1.2
+        with:
+          cosign-release: v2.6.1
+      - uses: aquasecurity/setup-trivy@e07451d2e059ed86c2870430ea286b3a9e0bf241
+        with:
+          version: v0.74.0
+      - name: Autenticarse en GHCR
+        env:
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: printf '%s' "$GHCR_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+      - name: Construir y verificar
+        env:
+          P10_REGISTRY: ghcr.io/dominicruano/sa-p8
+        run: |
+          version=$(cat P10/VERSION)
+          bash P10/scripts/build-images.sh
+          mkdir -p P10/artifacts
+          for service in gateway solicitudes catalogo; do
+            image="ghcr.io/dominicruano/sa-p8/$service:$version"
+            trivy image --exit-code 1 --severity CRITICAL "$image"
+            trivy image --format cyclonedx --output "P10/artifacts/$service.cdx.json" "$image"
+          done
+      - name: Publicar y firmar
+        run: |
+          version=$(cat P10/VERSION)
+          for service in gateway solicitudes catalogo; do
+            image="ghcr.io/dominicruano/sa-p8/$service:$version"
+            docker push "$image"
+            digest=$(docker inspect --format='{{index .RepoDigests 0}}' "$image")
+            cosign sign --yes "$digest"
+            cosign attest --yes --type cyclonedx --predicate "P10/artifacts/$service.cdx.json" "$digest"
+          done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: p10-sbom
+          path: P10/artifacts/*.cdx.json

@@ -1,0 +1,61 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: p10-services
+  namespace: observabilidad
+spec:
+  namespaceSelector:
+    matchNames: [sa-p9]
+  selector:
+    matchExpressions:
+      - {key: app.kubernetes.io/name, operator: In, values: [gateway, solicitudes, catalogo]}
+  podMetricsEndpoints:
+    - port: http
+      path: /metrics
+      interval: 10s
+      scrapeTimeout: 5s
+      honorLabels: true
+      relabelings:
+        - sourceLabels: [__meta_kubernetes_pod_label_app_kubernetes_io_name]
+          targetLabel: service
+        - sourceLabels: [__meta_kubernetes_pod_label_rollouts_pod_template_hash]
+          targetLabel: pod_template_hash
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: p10-slo
+  namespace: observabilidad
+spec:
+  groups:
+    - name: p10-slo
+      interval: 10s
+      rules:
+        - record: p10:sli_availability:ratio24h
+          expr: 1 - (sum(increase(http_requests_total{service="gateway",status=~"5.."}[24h])) or vector(0)) / clamp_min(sum(increase(http_requests_total{service="gateway"}[24h])), 1)
+        - record: p10:sli_latency:ratio24h
+          expr: sum(increase(http_request_duration_seconds_bucket{service="gateway",le="0.5"}[24h])) / clamp_min(sum(increase(http_request_duration_seconds_count{service="gateway"}[24h])), 1)
+        - record: p10:error_budget_availability:consumed24h
+          expr: (1 - p10:sli_availability:ratio24h) / 0.01
+        - record: p10:error_budget_latency:consumed24h
+          expr: (1 - p10:sli_latency:ratio24h) / 0.05
+        {{- range $window := list "1m" "5m" }}
+        - record: p10:availability:burnrate{{ $window }}
+          expr: ((sum(rate(http_requests_total{service="gateway",status=~"5.."}[{{ $window }}])) or vector(0)) / clamp_min(sum(rate(http_requests_total{service="gateway"}[{{ $window }}])), 0.000001)) / 0.01
+        - record: p10:latency:burnrate{{ $window }}
+          expr: (1 - sum(rate(http_request_duration_seconds_bucket{service="gateway",le="0.5"}[{{ $window }}])) / clamp_min(sum(rate(http_request_duration_seconds_count{service="gateway"}[{{ $window }}])), 0.000001)) / 0.05
+        {{- end }}
+        - alert: P10AvailabilityBudgetBurn
+          expr: p10:availability:burnrate5m > 14.4 and p10:availability:burnrate1m > 14.4 and sum(increase(http_requests_total{service="gateway"}[1m])) >= 20
+          for: 15s
+          labels: {severity: critical, practice: p10}
+          annotations:
+            summary: Las peticiones fallidas consumen rapidamente el presupuesto de disponibilidad
+            runbook_url: https://github.com/DominicRuano/Practica-10-SA-B-202200075/blob/main/P10/docs/runbooks.md#disponibilidad
+        - alert: P10LatencyBudgetBurn
+          expr: p10:latency:burnrate5m > 2 and p10:latency:burnrate1m > 2 and sum(increase(http_requests_total{service="gateway"}[1m])) >= 20
+          for: 15s
+          labels: {severity: warning, practice: p10}
+          annotations:
+            summary: La lentitud consume rapidamente el presupuesto de latencia
+            runbook_url: https://github.com/DominicRuano/Practica-10-SA-B-202200075/blob/main/P10/docs/runbooks.md#latencia

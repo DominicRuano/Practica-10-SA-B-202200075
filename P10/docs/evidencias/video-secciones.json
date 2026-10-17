@@ -1,0 +1,33 @@
+{
+  "recorded_at": "2026-10-17T14:04:08.571Z",
+  "chapters": [
+    {
+      "title": "Arquitectura y objetivos",
+      "seconds": 0
+    },
+    {
+      "title": "Cuatro señales, negocio y presupuesto",
+      "seconds": 38
+    },
+    {
+      "title": "GitOps y rechazo automático",
+      "seconds": 101
+    },
+    {
+      "title": "Alerta de presupuesto",
+      "seconds": 146
+    },
+    {
+      "title": "Tempo: localizar el span lento",
+      "seconds": 180
+    },
+    {
+      "title": "Loki: registro y causa correlacionados",
+      "seconds": 243
+    },
+    {
+      "title": "Recuperación y continuidad de P9",
+      "seconds": 309
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "first_fault_log_at": "2026-10-17T13:36:06.207593+00:00",
+  "failed_analysis_completed_at": "2026-10-17T13:40:20+00:00",
+  "rollback_decision_seconds": 253.792,
+  "observation_at": "2026-10-17T13:41:00.725092+00:00",
+  "time_to_observation_seconds": 294.517,
+  "analysis_run": "catalogo-b598b97bb-5-2"
+}

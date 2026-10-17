@@ -1,0 +1,8 @@
+{
+  "source": "recorrido-sintoma-causa.json",
+  "api_correlation_seconds": 1.644,
+  "api_complete_diagnosis_seconds": 4.999,
+  "complete_diagnosis_includes": "consulta del primer evento del fallo y calculo de deteccion",
+  "target_seconds": 180,
+  "target_met": true
+}

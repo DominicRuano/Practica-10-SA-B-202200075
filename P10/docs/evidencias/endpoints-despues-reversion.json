@@ -1,0 +1,10 @@
+[
+  {
+    "ready": true,
+    "pod": "catalogo-55dd789c55-hv2tf"
+  },
+  {
+    "ready": true,
+    "pod": "catalogo-55dd789c55-gs9sm"
+  }
+]

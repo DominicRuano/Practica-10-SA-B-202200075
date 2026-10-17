@@ -1,0 +1,17 @@
+{
+  "status": "success",
+  "data": {
+    "resultType": "vector",
+    "result": [
+      {
+        "metric": {
+          "__name__": "p10:sli_latency:ratio24h"
+        },
+        "value": [
+          1792245400.657,
+          "0.9390176552637264"
+        ]
+      }
+    ]
+  }
+}

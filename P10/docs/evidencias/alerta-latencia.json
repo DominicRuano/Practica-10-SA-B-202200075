@@ -1,0 +1,16 @@
+[
+  {
+    "labels": {
+      "alertname": "P10LatencyBudgetBurn",
+      "practice": "p10",
+      "severity": "warning"
+    },
+    "annotations": {
+      "runbook_url": "https://github.com/DominicRuano/Practica-10-SA-B-202200075/blob/main/P10/docs/runbooks.md#latencia",
+      "summary": "La lentitud consume rapidamente el presupuesto de latencia"
+    },
+    "state": "firing",
+    "activeAt": "2026-10-17T13:37:18.993433941Z",
+    "value": "2.3601970060447752e+00"
+  }
+]

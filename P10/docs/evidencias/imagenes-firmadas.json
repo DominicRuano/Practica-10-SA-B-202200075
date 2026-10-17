@@ -1,0 +1,29 @@
+[
+  {
+    "service": "gateway",
+    "image": "ghcr.io/dominicruano/sa-p8/gateway:1.10.1@sha256:9350c81ff8e0c77a437ac25908899b2c3c9819bb66f1ec17b74049ad8761c790",
+    "digest": "sha256:9350c81ff8e0c77a437ac25908899b2c3c9819bb66f1ec17b74049ad8761c790",
+    "certificate_identity": "https://github.com/DominicRuano/Practicas-SA-B-202200075/.github/workflows/p10-observability.yml@refs/heads/main",
+    "certificate_issuer": "https://token.actions.githubusercontent.com",
+    "signature_verified": true,
+    "source_commit": "17594dd315c3897139e0edcb37301acbd7825fdf"
+  },
+  {
+    "service": "solicitudes",
+    "image": "ghcr.io/dominicruano/sa-p8/solicitudes:1.10.1@sha256:7f8d7bea50676a0acf568a4cf5260b45c0e8a74bda5c769507fc98e92e337a96",
+    "digest": "sha256:7f8d7bea50676a0acf568a4cf5260b45c0e8a74bda5c769507fc98e92e337a96",
+    "certificate_identity": "https://github.com/DominicRuano/Practicas-SA-B-202200075/.github/workflows/p10-observability.yml@refs/heads/main",
+    "certificate_issuer": "https://token.actions.githubusercontent.com",
+    "signature_verified": true,
+    "source_commit": "17594dd315c3897139e0edcb37301acbd7825fdf"
+  },
+  {
+    "service": "catalogo",
+    "image": "ghcr.io/dominicruano/sa-p8/catalogo:1.10.1@sha256:9445e42eb0759700440995e024bce1aec8ada96ee8197f78cd3fb4d283bdea5e",
+    "digest": "sha256:9445e42eb0759700440995e024bce1aec8ada96ee8197f78cd3fb4d283bdea5e",
+    "certificate_identity": "https://github.com/DominicRuano/Practicas-SA-B-202200075/.github/workflows/p10-observability.yml@refs/heads/main",
+    "certificate_issuer": "https://token.actions.githubusercontent.com",
+    "signature_verified": true,
+    "source_commit": "17594dd315c3897139e0edcb37301acbd7825fdf"
+  }
+]
