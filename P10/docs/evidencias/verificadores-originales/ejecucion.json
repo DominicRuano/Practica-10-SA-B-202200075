@@ -1,0 +1,44 @@
+{
+  "captured_at": "2026-10-17T14:13:11.393260+00:00",
+  "order": [
+    "p10",
+    "p9"
+  ],
+  "executions": [
+    {
+      "script": "verificar_p10.sh",
+      "sha256": "0f423f0112af77678177bc461dd035b065783e0136bffa3a5b35143ef30616f3",
+      "command": "bash verificar_p10.sh",
+      "context": "gke_elated-pathway-341621_us-central1-a_sa-p9",
+      "configuration": "p10.conf",
+      "result": {
+        "carnet": "202200075",
+        "instrumentacion": "14",
+        "canary": "11",
+        "slo": "2",
+        "causa": "10",
+        "registros": "8",
+        "total60": "45",
+        "eliminatorios": " analisis-sin-prometheus"
+      }
+    },
+    {
+      "script": "verificar_p9.sh",
+      "sha256": "367900de0c69946a2fa887c1ea54246beff7da5c5ed10203c6e4b48abb3ad03f",
+      "command": "bash verificar_p9.sh",
+      "context": "gke_elated-pathway-341621_us-central1-a_sa-p9",
+      "configuration": "p9.conf",
+      "result": {
+        "carnet": "202200075",
+        "bootstrap": "14",
+        "estado": "8",
+        "velero": "2",
+        "secretos": "8",
+        "resiliencia": "8",
+        "datos": "5",
+        "total60": "45",
+        "eliminatorios": " sin-respaldo"
+      }
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "captured_at": "2026-10-17T14:08:01.579635+00:00",
+  "prometheus_analysis_templates": [
+    "catalogo-promotion",
+    "gateway-promotion",
+    "solicitudes-promotion"
+  ],
+  "recording_rules": 8,
+  "alerts": [
+    {
+      "name": "P10AvailabilityBudgetBurn",
+      "expression": "p10:availability:burnrate5m > 14.4 and p10:availability:burnrate1m > 14.4 and sum(increase(http_requests_total{service=\"gateway\"}[1m])) >= 20",
+      "runbook": "https://github.com/DominicRuano/Practica-10-SA-B-202200075/blob/main/P10/docs/runbooks.md#disponibilidad"
+    },
+    {
+      "name": "P10LatencyBudgetBurn",
+      "expression": "p10:latency:burnrate5m > 2 and p10:latency:burnrate1m > 2 and sum(increase(http_requests_total{service=\"gateway\"}[1m])) >= 20",
+      "runbook": "https://github.com/DominicRuano/Practica-10-SA-B-202200075/blob/main/P10/docs/runbooks.md#latencia"
+    }
+  ],
+  "schedules": [
+    {
+      "name": "p9-quarter-hour",
+      "cron": "*/15 * * * *",
+      "paused": false,
+      "ttl": "168h0m0s"
+    }
+  ],
+  "completed_backups": 39,
+  "latest_backup": {
+    "name": "p9-quarter-hour-20261017140028",
+    "phase": "Completed",
+    "completed_at": "2026-10-17T14:01:27Z",
+    "default_volumes_to_fs_backup": true
+  },
+  "backup_storage_locations": [
+    {
+      "name": "default",
+      "phase": "Available"
+    }
+  ],
+  "completed_restores": [
+    "p9-restore-20261017050035"
+  ]
+}

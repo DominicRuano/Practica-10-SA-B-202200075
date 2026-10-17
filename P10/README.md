@@ -20,6 +20,7 @@ mediciones de la versión candidata. Reutiliza el clúster y los servicios de P9
 | SLO de latencia | 95 % de peticiones en 500 ms o menos, ventana de 24 horas |
 | Reglas SLI y presupuesto | `p10-slo`; [PrometheusRule](gitops/observability/templates/metrics.yaml) |
 | Métricas de negocio | `solicitudes_creadas_total`, `solicitudes_rechazadas_total`, `consultas_catalogo_total` |
+| Registros usados por el verificador | `gateway`; JSON con `trace_id` y centralización en Loki |
 | SLI declarado en p10.conf | `p10:sli_availability:ratio24h` |
 | Tablero | [JSON de Grafana](dashboards/operacion.json), UID `p10-operacion`; [captura](docs/evidencias/tablero-fallo.png) |
 | Reversión y AnalysisRun | `catalogo-b598b97bb-5-2`, Rollout `catalogo`; [AnalysisRun fallido](docs/evidencias/analysisrun-latencia-fallido.json) |
@@ -66,6 +67,11 @@ Los verificadores del auxiliar se ejecutan intactos. Los reportes de
 [evidencias](docs/evidencias/) conservan sus resultados; las diferencias entre
 el script y los recursos deben revisarse con el auxiliar. La calificación final
 incluye la evaluación presencial.
+
+Los originales dieron **45/60 en P10 y 45/60 en P9**, con los eliminatorios
+`analisis-sin-prometheus` y `sin-respaldo`, respectivamente. La
+[validación](docs/validacion.md) documenta los errores de lectura JSON y enlaza
+los recursos reales. Se conservan ambos resultados sin modificar la puntuación.
 
 ## Documentación
 

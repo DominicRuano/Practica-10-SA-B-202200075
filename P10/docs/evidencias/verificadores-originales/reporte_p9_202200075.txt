@@ -1,0 +1,107 @@
+================================================================
+ VERIFICACION PRACTICA 9 - v1.0
+ Carnet: 202200075        Fecha: 2026-10-17 08:10
+ Hash del script: 367900de0c69946a
+================================================================
+
+--- 0. Herramientas y contexto (debe verificarlo el auxiliar)
+  [OK]    Todas las herramientas presentes
+  Contexto de kubectl: gke_elated-pathway-341621_us-central1-a_sa-p9
+  [OK]    Acceso al cluster confirmado
+
+--- 1. Repositorios
+  [OK]    Repositorio de codigo accesible
+  [OK]    Repositorio GitOps accesible
+  [OK]    Carpeta /P9 presente
+  [OK]    README de entrega presente
+
+--- 2.1 Bootstrap automatizado desde cero (14 pts)
+  [OK]    Punto de entrada presente: P9/bootstrap.sh
+  Pasos automatizados detectados en el bootstrap: 9
+  [OK]    Terraform instala ArgoCD (capa de plataforma)
+  Aplicaciones registradas en ArgoCD: 10
+  Aplicacion raiz 'sa-p9-root': sync=Synced  aplicaciones hijas=9
+  [OK]    Patron app-of-apps operativo
+  [OK]    Aplicacion raiz sincronizada
+  >> 2.1 = 14 / 14
+
+--- 2.2 Estado remoto y disciplina de IaC (8 pts)
+  [OK]    Backend remoto declarado: backend "gcs"
+  [OK]    Se evidencia bloqueo de estado
+  [OK]    Sin archivos de estado en el repositorio
+  [OK]    Sin credenciales evidentes en el codigo
+  >> 2.2 = 8 / 8
+
+--- 2.3 Respaldo y restauracion con Velero (14 pts)
+  [OK]    Velero instalado en el namespace velero
+verificar_p9.sh: line 175: [: 1
+0: integer expression expected
+  [FALLA] Sin respaldos programados: solo respaldos manuales
+verificar_p9.sh: line 186: [: 39
+0: integer expression expected
+  [FALLA] Ningun respaldo completado
+  destino: provider=gcp bucket=elated-pathway-341621-sa-p9-backups estado=Available
+  [FALLA] Destino de respaldo no configurado o interno al cluster
+  [FALLA] Los respaldos NO incluyen volumenes: se respalda solo la definicion
+  >> 2.3 = 2 / 14
+
+--- 2.4 Continuidad de los secretos (8 pts)
+  [OK]    Mecanismo de secretos: ExternalSecrets
+  [OK]    ClusterSecretStore activo: la llave vive fuera del cluster
+  [OK]    ExternalSecret sincronizado correctamente
+  >> 2.4 = 8 / 8
+
+--- 2.5 Resiliencia ante perdida de nodo (8 pts)
+  [OK]    PodDisruptionBudget definido (10)
+  pdb=autenticacion minAvailable=1 maxUnavailable=- saludables=2
+  pdb=catalogo minAvailable=1 maxUnavailable=- saludables=2
+  pdb=gateway minAvailable=1 maxUnavailable=- saludables=2
+  pdb=p9-dump minAvailable=1 maxUnavailable=- saludables=2
+  pdb=postgresql-ha-pgpool minAvailable=1 maxUnavailable=- saludables=2
+  pdb=postgresql-ha-postgresql minAvailable=2 maxUnavailable=- saludables=3
+  pdb=postgresql-ha-postgresql-witness minAvailable=- maxUnavailable=1 saludables=0
+  pdb=rabbitmq minAvailable=2 maxUnavailable=- saludables=3
+  pdb=reportes minAvailable=1 maxUnavailable=- saludables=2
+  pdb=solicitudes minAvailable=1 maxUnavailable=- saludables=2
+  [OK]    Anti-afinidad o distribucion topologica declarada
+  Replicas minimas entre las cargas de trabajo: 2
+  [OK]    Toda carga de trabajo tiene 2 o mas replicas
+  >> 2.5 = 8 / 8
+
+--- 2.6 Restauracion de datos verificada (8 pts)
+  [OK]    PVC 'dumps-p9-dump-0' presente (fase=Bound)
+verificar_p9.sh: line 264: [: 1
+0: integer expression expected
+  [FALLA] Nunca se ha ejecutado una restauracion: el respaldo no esta probado
+  [OK]    Evidencia de verificacion de datos presente en el repositorio
+  >> 2.6 = 5 / 8
+
+--- Comprobaciones informativas
+  [OK]    Runbook presente en el repositorio
+  [OK]    El informe declara RTO y RPO
+73s         Normal    Completed               job/p9-platform-sa-platform-registrar-ejecucion-29870770         Job completed
+68s         Normal    Completed               job/p9-platform-sa-platform-publicar-resumen-29870770            Job completed
+68s         Normal    SawCompletedJob         cronjob/p9-platform-sa-platform-publicar-resumen                 Saw completed job: p9-platform-sa-platform-publicar-resumen-29870770, condition: Complete
+52s         Warning   Unhealthy               pod/reportes-5b4b99f8f7-9tdqh                                    Readiness probe failed: HTTP probe failed with statuscode: 503
+52s         Warning   Unhealthy               pod/catalogo-7cb5f4b5b9-d5jkk                                    Readiness probe failed: Get "http://10.84.1.80:8000/ready": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+================================================================
+ RESUMEN - carnet 202200075
+================================================================
+  2.1 Bootstrap automatizado ....... 14 / 14
+  2.2 Estado remoto e IaC ..........  8 / 8
+  2.3 Respaldo con Velero ..........  2 / 14
+  2.4 Continuidad de secretos ......  8 / 8
+  2.5 Resiliencia ante fallo .......  8 / 8
+  2.6 Restauracion verificada ......  5 / 8
+  --------------------------------------------
+  CONOCIMIENTO ..................... 45 / 60
+
+  Pendiente de evaluacion presencial: 40 pts
+    1.1 Runbook (12)   1.2 Informe de DR (12)
+    1.3 Diagrama del bootstrap (6)   1.4 Preguntas teoricas (10)
+
+  REQUISITOS ELIMINATORIOS INCUMPLIDOS: sin-respaldo
+
+  Duracion: 51s    Reporte: reporte_p9_202200075.txt
+================================================================
